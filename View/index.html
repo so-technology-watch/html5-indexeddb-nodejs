@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Load Bootstrap CSS & Custom style -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Load JQuery & Boostrap JS -->
+    <script src="js/libs/jquery-3.2.0.min.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+
+    <!-- Load Dexie.js -->
+    <script src="js/libs/dexie.js"></script>
+
+    <!-- Load VueJS -->
+    <script src="js/libs/vue.js"></script>
+
+    <!-- Load Client app modules -->
+    <script src="js/client/indexedDb.js"></script>
+    <script src="js/client/sqlite.js"></script>
+
+    <!-- Load Main Client app -->
+    <script src="js/client.js"></script>
+
+    <meta charset="UTF-8">
+
+    <title>HTML5 IndexedDB NodeJS</title>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li id="li0"><a id="linkHome" href="#">Home</a></li>
+            <li id="li1"><a id="linkCars" href="/Cars">Cars</a></li>
+            <li id="li2"><a id="linkDrivers" href="/Drivers">Drivers</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- Forms container -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>Proof Of Concept</h1>
+            <p class="lead">HTML5 with local persistence in IndexedDB and REST with NodeJS</p>
+            <h4><a href="https://github.com/so-technology-watch/html5-indexeddb-nodejs">Github repository</a> | <a
+                    href="/ressources/TechPlan.pdf">Technological Plan</a> | Connect to the api at: <span
+                    id="url"></span></h4>
+
+            <!-- Message displaying current synchronisation status -->
+            <span id="dbStatusMessage"></span>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
