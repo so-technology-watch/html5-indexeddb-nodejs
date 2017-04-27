@@ -7,7 +7,7 @@ const Promise = require('bluebird');
 /**
  * DAOs Common functions
  */
-module.exports = class {
+class Common {
 
     find(request) {
         return new Promise(function (resolve, reject) {
@@ -67,12 +67,14 @@ module.exports = class {
     run(request) {
         return new Promise(function (resolve, reject) {
             database.db.run(request, function (err) {
-                if (err) {
-                    reject(err);
-                } else {
+                if (this.changes === 1) {
                     resolve(true);
+                } else {
+                    reject(err);
                 }
             })
         });
     }
-};
+}
+
+module.exports = Common;
