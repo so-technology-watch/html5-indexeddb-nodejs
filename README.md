@@ -3,7 +3,7 @@
 This project is a proof of concept (POC).  
 It's purpose is to demonstrate an implementation of IndexedDB to make local data persistence and to synchronize it to a remote SQLite database using a NodeJS REST API.
 
-- Server Application : A NodeJS REST API using SQLite as a database (sqlite.db).
+- Server Application : A NodeJS REST API using SQLite as a database (sqlite.db). The code is written in ES6 and uses Promises.
 
 - Client Application : A Web interface using IndexedDB as a database (using Dexie library).  
 Views are served by VueJS.
@@ -36,6 +36,7 @@ For more details, see the [Wiki documentation](https://github.com/so-technology-
 
 ## Credits
 
+- Laurent Guerin, creator of [Telosys Tools](https://sites.google.com/site/telosystools/).
 - Evan You, creator of VueJS.
 - David Fahlander, creator of Dexie.js.
 
