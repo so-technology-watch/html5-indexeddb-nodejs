@@ -72,7 +72,9 @@ class DriverController {
         return driverDao.update(driver)
             .then(function () {
                 res.status(201);
-                res.json("Entity updated successfully");
+                res.json({
+                    'updated': true
+                });
             })
             .catch(function (error) {
                 res.status(400);
@@ -91,7 +93,9 @@ class DriverController {
         return driverDao.create(driver)
             .then(function () {
                 res.status(201);
-                res.json("Entity created successfully");
+                res.json({
+                    'created': true
+                });
             })
             .catch(function (error) {
                 res.status(400);
@@ -110,11 +114,15 @@ class DriverController {
         driverDao.deleteById(id)
             .then(function () {
                 res.status(200);
-                res.json("Entity deleted successfully");
+                res.json({
+                    'deleted': true
+                });
             })
-            .catch(function (error) {
+            .catch(function () {
                 res.status(404);
-                res.json("Entity not found : " + error);
+                res.json({
+                    'notFound': true
+                });
             });
     };
 
