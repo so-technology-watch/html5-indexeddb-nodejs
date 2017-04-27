@@ -16,7 +16,7 @@ app.listen(port, function () {
 });
 
 /* Express configuration */
-app.set('views', __dirname + '/View');
+app.set('views', __dirname + '/view');
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({extended: false}));

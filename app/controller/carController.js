@@ -16,7 +16,6 @@ class CarController {
      * @return entity
      */
     findById(req, res) {
-
         let id = req.params.id;
 
         carDao.findById(id)

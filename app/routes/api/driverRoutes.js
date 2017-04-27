@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 /* Load controller */
-const DriverController = require('../controller/DriverController');
+const DriverController = require('../../controller/driverController');
 const driverController = new DriverController();
 
 /**

@@ -5,7 +5,7 @@ It's purpose is to demonstrate an implementation of IndexedDB to make local data
 
 - Server Application : A NodeJS REST API using SQLite as a database (sqlite.db). The code is written in ES6 and uses Promises.
 
-- Client Application : A Web interface using IndexedDB as a database (using Dexie library).  
+- Client Application (Not working yet !) : A Web interface using IndexedDB as a database (using Dexie library).  
 Views are served by VueJS.
 
 For more details, see the [Technological Plan](https://github.com/so-technology-watch/html5-indexeddb-nodejs/blob/master/public/ressources/TechnologicalPlan.pptx).
