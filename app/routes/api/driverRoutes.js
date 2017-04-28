@@ -10,7 +10,7 @@ const driverController = new DriverController();
  * Driver Entity routes
  */
 router.get('/count', function (req, res) {
-    driverController.countAll(req, res);
+    driverController.countAll(res);
 });
 
 router.get('/exists/:id', function (req, res) {
@@ -22,7 +22,7 @@ router.get('/:id', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    driverController.findAll(req, res)
+    driverController.findAll(res);
 });
 
 router.put('/', function (req, res) {

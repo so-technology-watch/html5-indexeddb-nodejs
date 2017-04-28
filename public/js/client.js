@@ -3,7 +3,6 @@
  */
 
 /* When the Client page has loaded */
-
 $(document).ready(function () {
 
     /* Check if the client can connect to the server application */
@@ -30,8 +29,13 @@ $(document).ready(function () {
      This way, we obtain the server url & port and display it to the client */
     pingServer(function (status, url) {
         if (status === 0) {
-            $("#url").text(url);
-            $("#dbStatusMessage").empty().html("<b>Server connection successful</b>").css("color", "green");
+            var app = new Vue({
+                el: '#dbStatusMessage',
+                data: {
+                    message: 'Server connection successful',
+                    url: url
+                }
+            })
         }
     });
 });

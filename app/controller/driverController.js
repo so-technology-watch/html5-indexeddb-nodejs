@@ -1,14 +1,21 @@
-/* Load Car Data Access Object */
+/* Load Driver Data Access Object */
 const DriverDao = require('../dao/driverDao');
-const driverDao = new DriverDao();
+
+/* Load Controller Common function */
+const controllerCommon = require('./common/controllerCommon');
 
 /* Load Driver entity */
-const Driver = require('../model/driverClass');
+const Driver = require('../model/driver');
 
 /**
  * Driver Controller
  */
 class DriverController {
+
+    constructor() {
+        this.driverDao = new DriverDao();
+        this.common = new controllerCommon();
+    }
 
     /**
      * Tries to find an entity using its Id / Primary Key
@@ -17,15 +24,14 @@ class DriverController {
      */
     findById(req, res) {
         let id = req.params.id;
+        let _self = this;
 
-        driverDao.findById(id)
+        this.driverDao.findById(id)
             .then(function (result) {
-                res.status(200);
-                res.json(result);
+                _self.common.findSuccess(result, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.findError(error, res);
             });
     };
 
@@ -33,15 +39,15 @@ class DriverController {
      * Finds all entities.
      * @return all entities
      */
-    findAll(req, res) {
-        driverDao.findAll()
+    findAll(res) {
+        let _self = this;
+
+        this.driverDao.findAll()
             .then(function (results) {
-                res.status(200);
-                res.json(results);
+                _self.common.findSuccess(results, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.findError(error, res);
             });
     };
 
@@ -49,15 +55,15 @@ class DriverController {
      * Counts all the records present in the database
      * @return count
      */
-    countAll(req, res) {
-        driverDao.countAll()
+    countAll(res) {
+        let _self = this;
+
+        this.driverDao.countAll()
             .then(function (result) {
-                res.status(200);
-                res.json(result);
+                _self.common.findSuccess(result, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -68,17 +74,14 @@ class DriverController {
      */
     update(req, res) {
         let driver = new Driver(req.body.id, req.body.firstName, req.body.lastName, req.body.car);
+        let _self = this;
 
-        return driverDao.update(driver)
+        return this.driverDao.update(driver)
             .then(function () {
-                res.status(201);
-                res.json({
-                    'updated': true
-                });
+                _self.common.editSuccess(res);
             })
             .catch(function (error) {
-                res.status(400);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -89,17 +92,14 @@ class DriverController {
      */
     create(req, res) {
         let driver = new Driver(0, req.body.firstName, req.body.lastName, req.body.car);
+        let _self = this;
 
-        return driverDao.create(driver)
+        return this.driverDao.create(driver)
             .then(function () {
-                res.status(201);
-                res.json({
-                    'created': true
-                });
+                _self.common.editSuccess(res);
             })
             .catch(function (error) {
-                res.status(400);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -110,19 +110,14 @@ class DriverController {
      */
     deleteById(req, res) {
         let id = req.params.id;
+        let _self = this;
 
-        driverDao.deleteById(id)
+        this.driverDao.deleteById(id)
             .then(function () {
-                res.status(200);
-                res.json({
-                    'deleted': true
-                });
+                _self.common.editSuccess(res);
             })
-            .catch(function () {
-                res.status(404);
-                res.json({
-                    'notFound': true
-                });
+            .catch(function (error) {
+                _self.common.serverError(error, res);
             });
     };
 
@@ -133,15 +128,14 @@ class DriverController {
      */
     exists(req, res) {
         let id = req.params.id;
+        let _self = this;
 
-        driverDao.exists(id)
+        this.driverDao.exists(id)
             .then(function () {
-                res.status(200);
-                res.json(true);
+                _self.common.existsSuccess(res);
             })
-            .catch(function () {
-                res.status(404);
-                res.json(false);
+            .catch(function (error) {
+                _self.common.findError(error, res);
             });
     };
 }

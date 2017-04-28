@@ -1,14 +1,21 @@
 /* Load Car Data Access Object */
 const CarDao = require('../dao/carDao');
-const carDao = new CarDao();
+
+/* Load Controller Common function */
+const controllerCommon = require('./common/controllerCommon');
 
 /* Load Car entity */
-const Car = require('../model/carClass');
+const Car = require('../model/car');
 
 /**
  * Car Controller
  */
 class CarController {
+
+    constructor() {
+        this.carDao = new CarDao();
+        this.common = new controllerCommon();
+    }
 
     /**
      * Tries to find an entity using its Id / Primary Key
@@ -17,15 +24,14 @@ class CarController {
      */
     findById(req, res) {
         let id = req.params.id;
+        let _self = this;
 
-        carDao.findById(id)
+        this.carDao.findById(id)
             .then(function (result) {
-                res.status(200);
-                res.json(result);
+                _self.common.findSuccess(result, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.findError(error, res);
             });
     };
 
@@ -33,15 +39,15 @@ class CarController {
      * Finds all entities.
      * @return all entities
      */
-    findAll(req, res) {
-        carDao.findAll()
+    findAll(res) {
+        let _self = this;
+
+        this.carDao.findAll()
             .then(function (results) {
-                res.status(200);
-                res.json(results);
+                _self.common.findSuccess(results, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.findError(error, res);
             });
     };
 
@@ -49,15 +55,15 @@ class CarController {
      * Counts all the records present in the database
      * @return count
      */
-    countAll(req, res) {
-        carDao.countAll()
+    countAll(res) {
+        let _self = this;
+
+        this.carDao.countAll()
             .then(function (result) {
-                res.status(200);
-                res.json(result);
+                _self.common.findSuccess(result, res);
             })
             .catch(function (error) {
-                res.status(404);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -67,18 +73,15 @@ class CarController {
      * @return true if the entity has been updated, false if not found and not updated
      */
     update(req, res) {
+        let _self = this;
         let car = new Car(req.body.id, req.body.maker, req.body.model, req.body.year, req.body.driver);
 
-        return carDao.update(car)
+        return this.carDao.update(car)
             .then(function () {
-                res.status(201);
-                res.json({
-                    'updated': true
-                });
+                _self.common.editSuccess(res);
             })
             .catch(function (error) {
-                res.status(400);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -88,18 +91,15 @@ class CarController {
      * returns database insertion status
      */
     create(req, res) {
+        let _self = this;
         let car = new Car(0, req.body.maker, req.body.model, req.body.year, req.body.driver);
 
-        return carDao.create(car)
+        return this.carDao.create(car)
             .then(function () {
-                res.status(201);
-                res.json({
-                    'created': true
-                });
+                _self.common.editSuccess(res);
             })
             .catch(function (error) {
-                res.status(400);
-                res.json(error);
+                _self.common.serverError(error, res);
             });
     };
 
@@ -109,20 +109,15 @@ class CarController {
      * returns database deletion status
      */
     deleteById(req, res) {
+        let _self = this;
         let id = req.params.id;
 
-        carDao.deleteById(id)
+        this.carDao.deleteById(id)
             .then(function () {
-                res.status(200);
-                res.json({
-                    'deleted': true
-                });
+                _self.common.editSuccess(res);
             })
-            .catch(function () {
-                res.status(404);
-                res.json({
-                    'notFound': true
-                });
+            .catch(function (error) {
+                _self.common.serverError(error, res);
             });
     };
 
@@ -132,16 +127,15 @@ class CarController {
      * @return
      */
     exists(req, res) {
+        let _self = this;
         let id = req.params.id;
 
-        carDao.exists(id)
+        this.carDao.exists(id)
             .then(function () {
-                res.status(200);
-                res.json(true);
+                _self.common.existsSuccess(res);
             })
-            .catch(function () {
-                res.status(404);
-                res.json(false);
+            .catch(function (error) {
+                _self.common.findError(error, res);
             });
     };
 }

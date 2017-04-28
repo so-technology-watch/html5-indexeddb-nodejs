@@ -1,14 +1,17 @@
 /* Load Car entity */
-const Car = require('../model/CarClass');
+const Car = require('../model/car');
 
 /* Load DAO Common functions */
-const Common = require('./common');
-const common = new Common();
+const daoCommon = require('./commons/daoCommon');
 
 /**
  * Car Data Access Object
  */
 class CarDao {
+
+    constructor() {
+        this.common = new daoCommon();
+    }
 
     /**
      * Tries to find an entity using its Id / Primary Key
@@ -17,9 +20,8 @@ class CarDao {
      */
     findById(id) {
         let request = "SELECT id, maker, model, year, driver FROM car WHERE id=" + id;
-        return common.findOne(request).then(row =>
-            new Car(row.id, row.maker, row.model, row.year, row.driver)
-        );
+        return this.common.findOne(request).then(row =>
+            new Car(row.id, row.maker, row.model, row.year, row.driver));
     };
 
     /**
@@ -28,7 +30,7 @@ class CarDao {
      */
     findAll() {
         let request = "SELECT * FROM car";
-        return common.find(request).then(rows => {
+        return this.common.find(request).then(rows => {
             let cars = [];
             for (const row of rows) {
                 cars.push(new Car(row.id, row.maker, row.model, row.year, row.driver));
@@ -43,7 +45,7 @@ class CarDao {
      */
     countAll() {
         let request = "SELECT COUNT(*) AS count FROM car";
-        return common.findOne(request);
+        return this.common.findOne(request);
     };
 
     /**
@@ -58,7 +60,7 @@ class CarDao {
             "year='" + Car.year + "', " +
             "driver='" + Car.driver + "' " +
             "WHERE id=" + Car.id;
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -72,7 +74,7 @@ class CarDao {
             Car.model + "','" +
             Car.year + "','" +
             Car.driver + "')";
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -82,7 +84,7 @@ class CarDao {
      */
     deleteById(id) {
         let request = "DELETE FROM car WHERE id=" + id;
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -92,7 +94,7 @@ class CarDao {
      */
     exists(id) {
         let request = "SELECT (count(*) > 0) as found FROM car WHERE id=" + id;
-        return common.existsOne(request);
+        return this.common.existsOne(request);
     };
 }
 

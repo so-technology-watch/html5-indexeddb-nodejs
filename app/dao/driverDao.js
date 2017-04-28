@@ -1,14 +1,17 @@
 /* Load Driver entity */
-const Driver = require('../model/DriverClass');
+const Driver = require('../model/driver');
 
 /* Load DAO Common functions */
-const Common = require('./common');
-const common = new Common();
+const daoCommon = require('./commons/daoCommon');
 
 /**
  * Driver Data Access Object
  */
 class DriverDao {
+
+    constructor() {
+        this.common = new daoCommon();
+    }
 
     /**
      * Tries to find an entity using its Id / Primary Key
@@ -17,7 +20,7 @@ class DriverDao {
      */
     findById(id) {
         let request = "SELECT id, firstName, lastName, car FROM driver WHERE id=" + id;
-        return common.findOne(request).then(row =>
+        return this.common.findOne(request).then(row =>
             new Driver(row.id, row.firstName, row.lastName, row.car));
     };
 
@@ -27,7 +30,7 @@ class DriverDao {
      */
     findAll() {
         let request = "SELECT * FROM driver";
-        return common.find(request).then(rows => {
+        return this.common.find(request).then(rows => {
             let drivers = [];
             for (const row of rows) {
                 drivers.push(new Driver(row.id, row.firstName, row.lastName, row.car));
@@ -42,7 +45,7 @@ class DriverDao {
      */
     countAll() {
         let request = "SELECT COUNT(*) AS count FROM driver";
-        return common.findOne(request);
+        return this.common.findOne(request);
     };
 
     /**
@@ -56,7 +59,7 @@ class DriverDao {
             "lastName='" + Driver.lastName + "', " +
             "car='" + Driver.car + "' " +
             "WHERE id=" + Driver.id;
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -69,7 +72,7 @@ class DriverDao {
             Driver.firstName + "','" +
             Driver.lastName + "','" +
             Driver.car + "')";
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -79,7 +82,7 @@ class DriverDao {
      */
     deleteById(id) {
         let request = "DELETE FROM driver WHERE id=" + id;
-        return common.run(request);
+        return this.common.run(request);
     };
 
     /**
@@ -89,7 +92,7 @@ class DriverDao {
      */
     exists(id) {
         let request = "SELECT (count(*) > 0) as found FROM driver WHERE id=" + id;
-        return common.existsOne(request);
+        return this.common.existsOne(request);
     };
 }
 
