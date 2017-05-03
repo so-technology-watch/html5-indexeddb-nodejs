@@ -1,1 +1,17 @@
-CAR SHOW HTML
+<div id="vue-instance">
+    <!-- this will be the DOM element we will mount our VueJs instance to -->
+    Enter a greeting: <input type="text" v-model="greeting">
+    <pre>{{ $data | json }}</pre>
+</div>
+
+<script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+
+<script>
+    // our VueJs instance bound to the div with an id of vue-instance
+    var vm = new Vue({
+        el: '#vue-instance',
+        data: {
+            greeting: 'Hello VueJs!'
+        }
+    });
+</script>

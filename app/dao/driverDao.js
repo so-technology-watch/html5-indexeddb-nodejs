@@ -77,7 +77,7 @@ class DriverDao {
      */
     create(Driver) {
         let sqlRequest = "INSERT into driver (firstName, lastName, car) " +
-            "VALUES ('$firstName, $lastName, $car')";
+            "VALUES ($firstName, $lastName, $car)";
         let sqlParams = {
             $firstName: Driver.firstName,
             $lastName: Driver.lastName,

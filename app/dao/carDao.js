@@ -79,7 +79,7 @@ class CarDao {
      */
     create(Car) {
         let sqlRequest = "INSERT into car (maker, model, year, driver) " +
-            "VALUES ('$maker, $model, $year, $driver')";
+            "VALUES ($maker, $model, $year, $driver)";
         let sqlParams = {
             $maker: Car.maker,
             $model: Car.model,
