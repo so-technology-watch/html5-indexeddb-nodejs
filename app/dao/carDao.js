@@ -19,8 +19,9 @@ class CarDao {
      * @return entity
      */
     findById(id) {
-        let request = "SELECT id, maker, model, year, driver FROM car WHERE id=" + id;
-        return this.common.findOne(request).then(row =>
+        let sqlRequest = "SELECT id, maker, model, year, driver FROM car WHERE id=$id";
+        let sqlParams = {$id: id};
+        return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Car(row.id, row.maker, row.model, row.year, row.driver));
     };
 
@@ -29,8 +30,8 @@ class CarDao {
      * @return all entities
      */
     findAll() {
-        let request = "SELECT * FROM car";
-        return this.common.find(request).then(rows => {
+        let sqlRequest = "SELECT * FROM car";
+        return this.common.findAll(sqlRequest).then(rows => {
             let cars = [];
             for (const row of rows) {
                 cars.push(new Car(row.id, row.maker, row.model, row.year, row.driver));
@@ -44,8 +45,8 @@ class CarDao {
      * @return count
      */
     countAll() {
-        let request = "SELECT COUNT(*) AS count FROM car";
-        return this.common.findOne(request);
+        let sqlRequest = "SELECT COUNT(*) AS count FROM car";
+        return this.common.findOne(sqlRequest);
     };
 
     /**
@@ -54,13 +55,21 @@ class CarDao {
      * @return true if the entity has been updated, false if not found and not updated
      */
     update(Car) {
-        let request = "UPDATE car SET " +
-            "maker='" + Car.maker + "', " +
-            "model='" + Car.model + "', " +
-            "year='" + Car.year + "', " +
-            "driver='" + Car.driver + "' " +
-            "WHERE id=" + Car.id;
-        return this.common.run(request);
+        let sqlRequest = "UPDATE car SET " +
+            "maker=$maker, " +
+            "model=$model, " +
+            "year=$year, " +
+            "driver=$driver " +
+            "WHERE id=$id";
+
+        let sqlParams = {
+            $maker: Car.maker,
+            $model: Car.model,
+            $year: Car.year,
+            $driver: Car.driver,
+            $id: Car.id
+        };
+        return this.common.run(sqlRequest, sqlParams);
     };
 
     /**
@@ -69,12 +78,15 @@ class CarDao {
      * returns database insertion status
      */
     create(Car) {
-        let request = "INSERT into car (maker, model, year, driver) VALUES ('" +
-            Car.maker + "','" +
-            Car.model + "','" +
-            Car.year + "','" +
-            Car.driver + "')";
-        return this.common.run(request);
+        let sqlRequest = "INSERT into car (maker, model, year, driver) " +
+            "VALUES ('$maker, $model, $year, $driver')";
+        let sqlParams = {
+            $maker: Car.maker,
+            $model: Car.model,
+            $year: Car.year,
+            $driver: Car.driver
+        };
+        return this.common.run(sqlRequest, sqlParams);
     };
 
     /**
@@ -83,8 +95,9 @@ class CarDao {
      * returns database deletion status
      */
     deleteById(id) {
-        let request = "DELETE FROM car WHERE id=" + id;
-        return this.common.run(request);
+        let sqlRequest = "DELETE FROM car WHERE id=$id";
+        let sqlParams = {$id: id};
+        return this.common.run(sqlRequest, sqlParams);
     };
 
     /**
@@ -93,8 +106,9 @@ class CarDao {
      * returns database entry existence status (true/false)
      */
     exists(id) {
-        let request = "SELECT (count(*) > 0) as found FROM car WHERE id=" + id;
-        return this.common.existsOne(request);
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM car WHERE id=$id";
+        let sqlParams = {$id: id};
+        return this.common.run(sqlRequest, sqlParams);
     };
 }
 

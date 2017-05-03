@@ -12,9 +12,9 @@ const DaoError = require('./daoError');
  */
 class Common {
 
-    find(request) {
+    findAll(sqlRequest) {
         return new Promise(function (resolve, reject) {
-            database.db.all(request, function (err, rows) {
+            database.db.all(sqlRequest, function (err, rows) {
                 if (err) {
                     reject(
                         new DaoError(20, "Internal server error")
@@ -30,9 +30,10 @@ class Common {
         });
     }
 
-    findOne(request) {
+    findOne(sqlRequest, sqlParams) {
         return new Promise(function (resolve, reject) {
-            database.db.all(request, function (err, rows) {
+            let stmt = database.db.prepare(sqlRequest);
+            stmt.all(sqlParams, function (err, rows) {
                 if (err) {
                     reject(
                         new DaoError(11, "Invalid arguments")
@@ -49,9 +50,10 @@ class Common {
         });
     }
 
-    existsOne(request) {
+    existsOne(sqlRequest, sqlParams) {
         return new Promise(function (resolve, reject) {
-            database.db.each(request, function (err, row) {
+            let stmt = database.db.prepare(sqlRequest);
+            stmt.each(sqlParams, function (err, row) {
                 if (err) {
                     reject(
                         new DaoError(20, "Internal server error")
@@ -67,17 +69,18 @@ class Common {
         });
     }
 
-    run(request) {
+    run(sqlRequest, sqlParams) {
         return new Promise(function (resolve, reject) {
-            database.db.run(request, function () {
+            let stmt = database.db.prepare(sqlRequest);
+            stmt.run(sqlParams, function (err) {
                 if (this.changes === 1) {
                     resolve(true);
                 } else if (this.changes === 0) {
                     reject(
                         new DaoError(21, "Entity not found")
                     )
-                }
-                else {
+                } else {
+                    console.log(err);
                     reject(
                         new DaoError(11, "Invalid arguments")
                     )
