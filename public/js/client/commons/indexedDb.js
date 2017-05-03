@@ -1,12 +1,11 @@
 /**
- * IndexedDb Client application requests & configuration
- * Contains IndexedDb configuration & CRUD (using Dexie wrapper)
+ * IndexedDb Client configuration CRUD requests (using Dexie)
  */
 
 const db = new Dexie("db_Car_Driver");
 db.version(1).stores({
-    car: '++id, maker, model, year , driver, lastModified',
-    driver: '++id, lastname, firstname, car, lastModified'
+    car: '++id, maker, model, year , driver',
+    driver: '++id, lastName, firstName, car'
 });
 
 /* (CREATE) Add a Car */
@@ -14,9 +13,7 @@ db.version(1).stores({
 function addCar(Car, callback) {
     delete Car.id;
     db.car.put(Car).then(function () {
-
         callback();
-
     }).catch(function (error) {
         console.log(error);
     })
@@ -35,9 +32,7 @@ function getAllCars(callback) {
 function addDriver(Driver, callback) {
     delete Driver.id;
     db.driver.put(Driver).then(function () {
-
         callback();
-
     }).catch(function (error) {
         console.log(error);
     })

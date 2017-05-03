@@ -3,18 +3,10 @@ const express = require('express');
 const router = express.Router();
 
 /**
- * Client Web interface Routes
+ * Client main Front routes
  */
 router.get('/', function (req, res) {
     res.render('index.html');
-});
-
-router.get('/car', function (req, res) {
-    res.render('./car/index.html');
-});
-
-router.get('/driver', function (req, res) {
-    res.render('./driver/index.html');
 });
 
 router.get('/ping', function (req, res) {

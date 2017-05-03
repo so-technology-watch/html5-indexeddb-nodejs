@@ -1,12 +1,13 @@
 # Html5 IndexedDB NodeJS
 
-This project is a proof of concept (POC).  
+This project is a proof of concept (POC).
 It's purpose is to demonstrate an implementation of IndexedDB to make local data persistence and to synchronize it to a remote SQLite database using a NodeJS REST API.
 
 - Server Application : A NodeJS REST API using SQLite as a database (sqlite.db). The code is written in ES6 and uses Promises.
 
-- Client Application (Not working yet !) : A Web interface using IndexedDB as a database (using Dexie library).  
-Views are served by VueJS.
+- Client Application __(Work in progress !)__ : A Web interface using IndexedDB as a database (using Dexie library).  
+Elements are displayed in views by VueJS.  
+Additionally, an Angular2 front is proposed (without the IndexedDB part) to use with the server API.
 
 For more details, see the [Technological Plan](https://github.com/so-technology-watch/html5-indexeddb-nodejs/blob/master/public/ressources/TechnologicalPlan.pptx).
 
@@ -34,8 +35,14 @@ And the different routes of the API.
 Alternatively, you can use `node index.js YOUR_PORT_NUMBER` to start the server with a specific port.  
 For more details, see the [Wiki documentation](https://github.com/so-technology-watch/html5-indexeddb-nodejs/wiki).
 
+## Todo :
+
+- Vue.JS/JQuery front.
+- Angular2 front.
+
 ## Credits
 
+- Made by Romuald Tuffreau @romwaldtff
 - Laurent Guerin, creator of [Telosys Tools](https://sites.google.com/site/telosystools/).
 - Evan You, creator of VueJS.
 - David Fahlander, creator of Dexie.js.

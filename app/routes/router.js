@@ -4,11 +4,15 @@
 const express = require('express');
 const router = express.Router();
 
-/* API Routes */
+/* API routes */
 router.use('/api/car', require('./api/carRoutes'));
 router.use('/api/driver', require('./api/driverRoutes'));
 
-/* Client Web interface Routes */
-router.use('/', require('./client/client'));
+/* Entities Front routes */
+router.use('/car', require('./front/carFrontRoutes'));
+router.use('/driver', require('./front/driverFrontRoutes'));
+
+/* Client main Front routes */
+router.use('/', require('./front/client'));
 
 module.exports = router;
