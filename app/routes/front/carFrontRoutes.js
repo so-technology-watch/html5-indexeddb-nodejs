@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     res.render('./car/index.html');
 });
 
-router.get('/new/:id', function (req, res) {
+router.get('/new/', function (req, res) {
     res.render('./car/new.html');
 });
 
