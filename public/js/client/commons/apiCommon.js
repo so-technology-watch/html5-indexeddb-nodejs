@@ -40,3 +40,51 @@ function displayHome(app, url, message) {
     app.message = message;
     app.url = url;
 }
+
+/* Prepares apiURL fetch ALL entity */
+function fetchAll(entityType) {
+    pingServer(function (status, url) {
+        if (status === 0) {
+            var apiURL = url + '/api/' + entityType;
+            displayEntityList(apiURL, entityType)
+        }
+        else {
+            //NO CONNECTION TO REMOTE DATABASE
+        }
+    });
+}
+
+/* Prepares apiURL fetch ONE entity */
+function fetchOne(entityType, id) {
+    pingServer(function (status, url) {
+        if (status === 0) {
+            var apiURL = url + '/api/' + entityType + '/' + id;
+            displayEntityList(apiURL, entityType)
+        }
+        else {
+            //NO CONNECTION TO REMOTE DATABASE
+        }
+    });
+}
+
+/* Fetches data on our API, then displays it */
+function displayEntityList(apiURL, entityType) {
+    new Vue({
+        el: '#entityList',
+        data: {
+            entityType: entityType,
+            items: []
+        },
+        created: function () {
+            this.fetchData();
+        },
+        methods: {
+            fetchData: function () {
+                var self = this;
+                $.get(apiURL, function (data) {
+                    self.items = data;
+                });
+            }
+        }
+    });
+}

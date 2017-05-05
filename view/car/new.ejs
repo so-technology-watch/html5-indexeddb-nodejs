@@ -1,0 +1,34 @@
+<% include ../layout/templates/header %>
+<% include ../layout/templates/navbar %>
+<% include ../layout/content/homeMessage %>
+
+<div class="container" id="entityList">
+    <h1>New Car</h1>
+
+    <form>
+        <div class="form-group">
+            <label for="inputCarMaker">Maker</label>
+            <input type="text" class="form-control" id="inputCarMaker" placeholder="Enter Car Maker">
+        </div>
+        <div class="form-group">
+            <label for="inputCarModel">Model</label>
+            <input type="text" class="form-control" id="inputCarModel" placeholder="Enter Car Model">
+        </div>
+        <div class="form-group">
+            <label for="inputCarYear">Year</label>
+            <input type="text" class="form-control" id="inputCarYear" placeholder="Enter Car Year">
+        </div>
+        <div class="form-group">
+            <label for="inputCarDriver">Driver</label>
+            <input type="text" class="form-control" id="inputCarDriver" placeholder="Enter Car Driver">
+        </div>
+    </form>
+
+TODO : BACK TO THE LIST BUTTON NOT WORKING
+    <input type="submit" class="btn btn-success" value="Add a new entity">
+    <a v-bind:href="'../../'+entityType">
+        <button type="button" class="btn btn-info">Back to the list</button>
+    </a>
+</div>
+
+<% include ../layout/templates/footer %>

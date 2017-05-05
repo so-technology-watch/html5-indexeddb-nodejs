@@ -1,0 +1,30 @@
+<% include ../layout/templates/header %>
+<% include ../layout/templates/navbar %>
+<% include ../layout/content/homeMessage %>
+
+<div class="container" id="entityList">
+    <div class="panel panel-info">
+        <div class="panel-heading"><h2>Driver {{items.id}} details </h2></div>
+        <div class="panel-body">
+            <div class="well">
+                <ul>
+                    <li>Driver First Name : {{items.firstName}}</li>
+                    <li>Driver Last Name : {{items.lastName}}</li>
+                    <li>Driver Car : {{items.car}}</li>
+                </ul>
+            </div>
+            <a v-bind:href="'../../'+entityType">
+                <button type="button" class="btn btn-info">Back to the list</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var entityType = 'driver';
+    fetchOne(entityType, <%= id %>);
+</script>
+
+<% include ../layout/templates/footer %>

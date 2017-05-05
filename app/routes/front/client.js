@@ -6,7 +6,7 @@ const router = express.Router();
  * Client main Front routes
  */
 router.get('/', function (req, res) {
-    res.render('index.html');
+    res.render('index');
 });
 
 router.get('/ping', function (req, res) {

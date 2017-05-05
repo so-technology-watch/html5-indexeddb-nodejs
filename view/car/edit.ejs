@@ -1,0 +1,40 @@
+<% include ../layout/templates/header %>
+<% include ../layout/templates/navbar %>
+<% include ../layout/content/homeMessage %>
+
+<div class="container" id="entityList">
+    <div class="panel panel-warning">
+        <div class="panel-heading"><h2>Edit Car {{items.id}}</h2></div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="inputCarMaker">Maker</label>
+                    <input type="text" class="form-control" id="inputCarMaker" v-bind:value="items.maker">
+                </div>
+                <div class="form-group">
+                    <label for="inputCarModel">Model</label>
+                    <input type="text" class="form-control" id="inputCarModel" v-bind:value="items.model">
+                </div>
+                <div class="form-group">
+                    <label for="inputCarYear">Year</label>
+                    <input type="text" class="form-control" id="inputCarYear" v-bind:value="items.year">
+                </div>
+                <div class="form-group">
+                    <label for="inputCarDriver">Driver</label>
+                    <input type="text" class="form-control" id="inputCarDriver" v-bind:value="items.driver">
+                </div>
+            </form>
+            <input type="submit" class="btn btn-warning" value="Update entity">
+            <a v-bind:href="'../../'+entityType">
+                <button type="button" class="btn btn-info">Back to the list</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    var entityType = 'car';
+    fetchOne(entityType, <%= id %>);
+</script>
+
+<% include ../layout/templates/footer %>
