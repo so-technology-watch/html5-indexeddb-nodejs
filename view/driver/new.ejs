@@ -2,28 +2,38 @@
 <% include ../layout/templates/navbar %>
 <% include ../layout/content/homeMessage %>
 
-<div class="container" id="entityList">
-    <h1>New Driver</h1>
-
-    <form>
-        <div class="form-group">
-            <label for="inputDriverFirstName">First name</label>
-            <input type="text" class="form-control" id="inputDriverFirstName" placeholder="Enter Driver first name">
+<div class="container" id="entityList" a>
+    <div class="panel panel-success">
+        <div class="panel-heading"><h2>New Driver</h2></div>
+        <div class="panel-body">
+            <form>
+                <div class="form-group">
+                    <label for="inputDriverFirstName">First name</label>
+                    <input type="text" class="form-control" id="inputDriverFirstName"
+                           placeholder="Enter Driver first name">
+                </div>
+                <div class="form-group">
+                    <label for="inputDriverLastName">Last name</label>
+                    <input type="text" class="form-control" id="inputDriverLastName"
+                           placeholder="Enter Driver last name">
+                </div>
+                <div class="form-group">
+                    <label for="inputDriverCar">Car</label>
+                    <input type="text" class="form-control" id="inputDriverCar" placeholder="Enter Driver car">
+                </div>
+                <input type="submit" id="saveDriver" class="btn btn-success" value="Add a new entity">
+                <a v-bind:href="'../../'+entityType">
+                    <button type="button" class="btn btn-info">Back to the list</button>
+                </a>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="inputDriverLastName">Last name</label>
-            <input type="text" class="form-control" id="inputDriverLastName" placeholder="Enter Driver last name">
-        </div>
-        <div class="form-group">
-            <label for="inputDriverCar">Car</label>
-            <input type="text" class="form-control" id="inputDriverCar" placeholder="Enter Driver car">
-        </div>
-    </form>
-
-    <input type="submit" class="btn btn-success" value="Add a new entity">
-    <a v-bind:href="'../../'+entityType">
-        <button type="button" class="btn btn-info">Back to the list</button>
-    </a>
+    </div>
 </div>
+
+<script>
+    var entityType = 'driver';
+    createOne(entityType);
+    driverFrontAdd(entityType);
+</script>
 
 <% include ../layout/templates/footer %>

@@ -67,6 +67,19 @@ function fetchOne(entityType, id) {
     });
 }
 
+/* Prepares apiURL create ONE entity */
+function createOne(entityType) {
+    pingServer(function (status, url) {
+        if (status === 0) {
+            var apiURL = url + '/api/' + entityType;
+            displayEntityList(apiURL, entityType)
+        }
+        else {
+            //NO CONNECTION TO REMOTE DATABASE
+        }
+    });
+}
+
 /* Fetches data on our API, then displays it */
 function displayEntityList(apiURL, entityType) {
     new Vue({
@@ -85,6 +98,68 @@ function displayEntityList(apiURL, entityType) {
                     self.items = data;
                 });
             }
+        }
+    });
+}
+
+/* Prepares SQL & IndexedDB insertion */
+function prepareSQLAdd(entity, entityType) {
+
+    /* We check if we are still connected to our server application */
+    pingServer(function (status, url) {
+        if (status === 0) {
+
+            /* If we are, then insert the new Entity in both IndexedDb and SQLite */
+            idbAddEntity(entity, entityType, function (data) {
+                if (data) {
+                    console.log("IndexedDb insertion failed, aborting SQL insertion");
+                } else {
+                    addInSql(entity, url, entityType, function (data) {
+                        if (data.status === 201) {
+                            window.location.replace(url + '/' + entityType);
+                        } else {
+                            console.log(data);
+                        }
+                    });
+                }
+            });
+        } else {
+            /* Else, we insert our new Entity only in IndexedDb */
+            idbAddEntity(entity, entityType, function (data) {
+                console.log("IndexedDb insertion successful");
+            });
+        }
+    });
+}
+
+/* Prepares SQL & IndexedDB update */
+function prepareSQLUpdate(entity, entityType) {
+
+    /* We check if we are still connected to our server application */
+    pingServer(function (status, url) {
+        if (status === 0) {
+            var id = entity.id;
+
+            /* If we are, then update the new Entity in both IndexedDb and SQLite */
+            idbAddEntity(entity, entityType, function (data) {
+                entity.id = id;
+                if (data) {
+                    console.log("IndexedDb update failed, aborting SQL update");
+                } else {
+                    updateInSql(entity, url, entityType, function (data) {
+                        if (data.status === 201) {
+                            window.location.replace(url + '/' + entityType);
+                        } else {
+                            console.log(data);
+                        }
+                    });
+                }
+            });
+        } else {
+            /* Else, we update our new Entity only in IndexedDb */
+            idbAddEntity(entity, entityType, function (data) {
+                console.log("IndexedDb update successful");
+            });
         }
     });
 }

@@ -23,11 +23,11 @@
                     <label for="inputCarDriver">Driver</label>
                     <input type="text" class="form-control" id="inputCarDriver" v-bind:value="items.driver">
                 </div>
+                <input type="submit" id="saveCar" class="btn btn-warning" value="Update entity">
+                <a v-bind:href="'../../'+entityType">
+                    <button type="button" class="btn btn-info">Back to the list</button>
+                </a>
             </form>
-            <input type="submit" class="btn btn-warning" value="Update entity">
-            <a v-bind:href="'../../'+entityType">
-                <button type="button" class="btn btn-info">Back to the list</button>
-            </a>
         </div>
     </div>
 </div>
@@ -35,6 +35,7 @@
 <script>
     var entityType = 'car';
     fetchOne(entityType, <%= id %>);
+    carFrontUpdate(entityType, <%= id %>);
 </script>
 
 <% include ../layout/templates/footer %>

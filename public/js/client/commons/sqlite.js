@@ -2,30 +2,34 @@
  * SQLite Client application requests
  */
 
-/* (CREATE) Add a Car */
-
-function addCarInSql(Car, callback) {
-    $.get("/updateCar?" +
-        "carId=" + Car.id +
-        "&carMaker=" + Car.maker +
-        "&carModel=" + Car.model +
-        "&carYear=" + Car.year +
-        "&carDriver=" + Car.driver +
-        "&carLastModified=" + Car.lastModified
-        , function (data) {
+/* (CREATE) Add an Entity */
+function addInSql(Entity, url, entityType, callback) {
+    $.ajax({
+        url: url + '/api/' + entityType + '/create',
+        type: 'post',
+        dataType: 'json',
+        data: Entity,
+        success: function (data) {
             callback(data);
-        });
+        },
+        error: function (error) {
+            callback(error);
+        }
+    });
 }
 
-/* (CREATE) Add a Driver */
-
-function addDriverInSql(Driver, callback) {
-    $.get("/updateDriver?driverId=" + Driver.id +
-        "&driverLastName=" + Driver.lastName +
-        "&driverFirstName=" + Driver.firstName +
-        "&driverCar=" + Driver.car +
-        "&driverLastModified=" + Driver.lastModified
-        , function (data) {
+/* (UPDATE) Edit an Entity */
+function updateInSql(Entity, url, entityType, callback) {
+    $.ajax({
+        url: url + '/api/' + entityType,
+        type: 'put',
+        dataType: 'json',
+        data: Entity,
+        success: function (data) {
             callback(data);
-        });
+        },
+        error: function (error) {
+            callback(error);
+        }
+    });
 }

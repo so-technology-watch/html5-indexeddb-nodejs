@@ -1,11 +1,23 @@
 {
   "name": "html5-indexeddb-nodejs",
   "version": "0.1.0",
+  "description": "POC - HTML5 with local persistence in IndexedDB and REST with NodeJS.",
+  "author": "Romuald Tuffreau https://github.com/romwaldtff",
+  "contributors": [
+    {
+      "name": "El Hitti Imad",
+      "github": "https://github.com/imadhy"
+    }
+  ],
   "dependencies": {
     "body-parser": "^1.17.1",
     "ejs": "~1.0.0",
     "express": "~4.10.1",
     "sqlite": "^2.5.0",
     "bluebird": "*"
+  },
+  "license": "See license in LICENSE file",
+  "bugs": {
+    "url": "https://github.com/so-technology-watch/html5-indexeddb-nodejs/issues"
   }
 }
