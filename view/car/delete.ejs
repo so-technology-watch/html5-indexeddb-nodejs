@@ -1,0 +1,8 @@
+<% include ../layout/templates/header %>
+<script>
+    var entityType = 'car';
+    pingServer(function (status, url) {
+        carFrontDelete(url, entityType, <%= id %>);
+    })
+</script>
+<% include ../layout/templates/footer %>

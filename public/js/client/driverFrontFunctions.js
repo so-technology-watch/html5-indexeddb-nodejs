@@ -40,3 +40,9 @@ function driverFrontUpdate(entityType, id) {
         });
     });
 }
+
+function driverFrontDelete(url, entityType, id) {
+    idbDeleteEntity(entityType, id, function () {
+        window.location.replace(url + '/' + entityType);
+    });
+}

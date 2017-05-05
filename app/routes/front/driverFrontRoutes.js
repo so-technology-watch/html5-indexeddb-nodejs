@@ -27,6 +27,6 @@ router.get('/edit/:id', function (req, res) {
 
 router.get('/delete/:id', function (req, res) {
     driverController.deleteById(req, res);
-    res.redirect('../../driver');
+    res.render('./driver/delete', {id: req.params.id});
 });
 module.exports = router;

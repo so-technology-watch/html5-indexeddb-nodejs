@@ -27,7 +27,7 @@ router.get('/edit/:id', function (req, res) {
 
 router.get('/delete/:id', function (req, res) {
     carController.deleteById(req, res);
-    res.redirect('../../car');
+    res.render('./car/delete', {id: req.params.id});
 });
 
 

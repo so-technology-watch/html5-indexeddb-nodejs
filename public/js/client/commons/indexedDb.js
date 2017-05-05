@@ -25,3 +25,37 @@ function idbAddEntity(Entity, entityType, callback) {
         })
     }
 }
+
+/* (UPDATE) Update an Entity */
+function idbUpdateEntity(Entity, entityType, callback) {
+    if (entityType === 'car') {
+        db.car.update(Entity.id, Entity).then(function () {
+            callback();
+        }).catch(function (error) {
+            callback(error);
+        })
+    } else if (entityType === 'driver') {
+        db.driver.update(Entity.id, Entity).then(function () {
+            callback();
+        }).catch(function (error) {
+            callback(error);
+        })
+    }
+}
+
+/* (DELETE) Delete an Entity by Id */
+function idbDeleteEntity(entityType, id, callback) {
+    if (entityType === 'car') {
+        db.car.delete(id).then(function () {
+            callback();
+        }).catch(function (error) {
+            console.log(error);
+        })
+    } else if (entityType === 'driver') {
+        db.driver.delete(id).then(function () {
+            callback();
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+}

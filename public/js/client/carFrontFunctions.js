@@ -42,3 +42,9 @@ function carFrontUpdate(entityType, id) {
         });
     });
 }
+
+function carFrontDelete(url, entityType, id) {
+    idbDeleteEntity(entityType, id, function () {
+        window.location.replace(url + '/' + entityType);
+    });
+}

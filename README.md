@@ -5,7 +5,7 @@ It's purpose is to demonstrate an implementation of IndexedDB to make local data
 
 - Server Application : A NodeJS REST API using SQLite as a database (sqlite.db). The code is written in ES6 and uses Promises.
 
-- Client Application __(Work in progress !)__ : A Web interface using IndexedDB as a database (using Dexie library).  
+- Client Application __(Partially Working)__ : A Web interface using IndexedDB as a database (using Dexie library).  
 Elements are displayed in views by VueJS.
   
 __(Work in progress !)__ Additionally, an Angular2 front is proposed (without the IndexedDB part) to use with the server API.
@@ -50,8 +50,8 @@ __(Work in progress !)__ For more details, see the [Wiki documentation](https://
 ## Thanks
 
 - [Laurent Guerin](https://github.com/l-gu), creator of [Telosys Tools](https://sites.google.com/site/telosystools/).
-- Evan You, creator of VueJS.
-- David Fahlander, creator of Dexie.js.
+- [Evan You](https://github.com/yyx990803), creator of [VueJS](https://github.com/vuejs).
+- [David Fahlander](https://github.com/dfahlander), creator of [Dexie.js](https://github.com/dfahlander/Dexie.js).
 
 ## License
 

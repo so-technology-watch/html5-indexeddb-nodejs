@@ -141,7 +141,7 @@ function prepareSQLUpdate(entity, entityType) {
             var id = entity.id;
 
             /* If we are, then update the new Entity in both IndexedDb and SQLite */
-            idbAddEntity(entity, entityType, function (data) {
+            idbUpdateEntity(entity, entityType, function (data) {
                 entity.id = id;
                 if (data) {
                     console.log("IndexedDb update failed, aborting SQL update");
@@ -157,7 +157,7 @@ function prepareSQLUpdate(entity, entityType) {
             });
         } else {
             /* Else, we update our new Entity only in IndexedDb */
-            idbAddEntity(entity, entityType, function (data) {
+            idbUpdateEntity(entity, entityType, function (data) {
                 console.log("IndexedDb update successful");
             });
         }
