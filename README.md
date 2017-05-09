@@ -8,19 +8,20 @@ It's purpose is to demonstrate an implementation of IndexedDB to make local data
 - Client Application __(Partially Working)__ : A Web interface using IndexedDB as a database (using Dexie library).  
 Elements are displayed in views by VueJS.
   
-__(Work in progress !)__ Additionally, an Angular2 front is proposed (without the IndexedDB part) to use with the server API.
+Additionally, an [Angular2 front](https://github.com/so-technology-watch/angular2-demo) is proposed by [Imad El Hitti](https://github.com/imadhy) (without the IndexedDB part).
 
 For more details, see the [Technological Plan](https://github.com/so-technology-watch/html5-indexeddb-nodejs/blob/master/public/ressources/TechPlan.pdf).
 
 ## Installation
 
-1. Clone this repository : `git clone https://github.com/so-technology-watch/html5-indexeddb-nodejs.git`  
+1. [Download](https://github.com/so-technology-watch/html5-indexeddb-nodejs/releases) or clone this repository : `git clone https://github.com/so-technology-watch/html5-indexeddb-nodejs.git`  
 2. Then install its dependencies : `npm install`
 
 ## Requirements
 
-- [NodeJS](https://nodejs.org/en/).
-- [Npm](https://www.npmjs.com/).
+- [Git](https://git-scm.com/) if you want to clone this repository.
+- [NodeJS](https://nodejs.org/en/) to run the application.
+- [Npm](https://www.npmjs.com/) to install dependencies (see the full list below at "Dependencies").
 - A Web Browser to test the Client Application.
 - [Postman](https://www.getpostman.com/) if you just want to test the API.
 
@@ -34,18 +35,25 @@ Or connect Postman to the API at : `http://localhost:3000`
 And the different routes of the API.
 
 Alternatively, you can use `node index.js YOUR_PORT_NUMBER` to start the server with a specific port.  
-__(Work in progress !)__ For more details, see the [Wiki documentation](https://github.com/so-technology-watch/html5-indexeddb-nodejs/wiki).
+For more details, see the [Wiki documentation](https://github.com/so-technology-watch/html5-indexeddb-nodejs/wiki).
 
+## Dependencies (installed via `npm install`)
+
+- [Body-parser](https://www.npmjs.com/package/body-parser), a Node.js body parsing middleware.
+- [Ejs](https://www.npmjs.com/package/ejs) embedded JavaScript templates.
+- [Express](https://www.npmjs.com/package/express), a fast and minimalist web framework for node.
+- [Sqlite](https://www.npmjs.com/package/sqlite), a wrapper library that adds ES6 promises and SQL-based migrations API to [sqlite3](https://www.npmjs.com/package/sqlite3)*.
+- [Bluebird](https://www.npmjs.com/package/bluebird) promise library.
+
+*Sqlite3 : (Asynchronous, non-blocking SQLite3 bindings for Node.js.)
 ## Todo
 
 - Vue.JS/JQuery front : IndexedDB synchronisation.
-- Angular2 front.
 - Documentation.
 
 ## Credits
 
 - Made by [Romuald Tuffreau](https://github.com/romwaldtff).
-- Angular2 front made by [Imad El Hitti](https://github.com/imadhy).
 
 ## Thanks
 

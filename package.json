@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "description": "POC - HTML5 with local persistence in IndexedDB and REST with NodeJS.",
   "author": "Romuald Tuffreau https://github.com/romwaldtff",
-  "contributors": [
-    {
-      "name": "El Hitti Imad",
-      "github": "https://github.com/imadhy"
-    }
-  ],
   "dependencies": {
     "body-parser": "^1.17.1",
     "ejs": "~1.0.0",
