@@ -4,27 +4,27 @@
 
 <div class="container" id="entityList">
     <div class="panel panel-warning">
-        <div class="panel-heading"><h2>Edit Car {{items.id}}</h2></div>
+        <div class="panel-heading"><h2>Edit Car</h2></div>
         <div class="panel-body">
-            <form>
+            <form id="carForm" v-on:submit.prevent="save">
                 <div class="form-group">
                     <label for="inputCarMaker">Maker</label>
-                    <input type="text" class="form-control" id="inputCarMaker" v-bind:value="items.maker">
+                    <input type="text" class="form-control" v-model="car.maker">
                 </div>
                 <div class="form-group">
                     <label for="inputCarModel">Model</label>
-                    <input type="text" class="form-control" id="inputCarModel" v-bind:value="items.model">
+                    <input type="text" class="form-control" v-model="car.model">
                 </div>
                 <div class="form-group">
                     <label for="inputCarYear">Year</label>
-                    <input type="text" class="form-control" id="inputCarYear" v-bind:value="items.year">
+                    <input type="text" class="form-control" v-model="car.year">
                 </div>
                 <div class="form-group">
                     <label for="inputCarDriver">Driver</label>
-                    <input type="text" class="form-control" id="inputCarDriver" v-bind:value="items.driver">
+                    <input type="text" class="form-control" v-model="car.driver">
                 </div>
                 <input type="submit" id="saveCar" class="btn btn-warning" value="Update entity">
-                <a v-bind:href="'../../'+entityType">
+                <a href="'../../car'">
                     <button type="button" class="btn btn-info">Back to the list</button>
                 </a>
             </form>
@@ -33,9 +33,7 @@
 </div>
 
 <script>
-    var entityType = 'car';
-    fetchOne(entityType, <%= id %>);
-    carFrontUpdate(entityType, <%= id %>);
+    formEditCar(<%= id %>);
 </script>
 
 <% include ../layout/templates/footer %>

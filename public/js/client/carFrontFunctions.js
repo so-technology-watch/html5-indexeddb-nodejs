@@ -1,50 +1,125 @@
 /**
  * Car Front functions
  */
-function carFrontAdd(entityType) {
-    $(document).ready(function () {
+function formAddCar() {
 
-        /* Add a listener to the form-submit-button */
-        $("#saveCar").click(function (ev) {
-            ev.preventDefault();
-            ev.stopImmediatePropagation();
+    return new Vue({
+        el: '#carForm',
+        data: {
+            car: {}
+        },
+        methods: {
+            save: function () {
+                var car = {
+                    'maker': this.car.maker,
+                    'model': this.car.model,
+                    'year': this.car.year,
+                    'driver': this.car.driver
+                };
+                create(car, 'car', function (error) {
+                    if (error) {
+                        console.log(error);
+                        return;
+                    }
 
-            /* Obtain form values to create a new Car */
-            var car = {
-                'id': 0,
-                'maker': $("#inputCarMaker").val(),
-                'model': $("#inputCarModel").val(),
-                'year': $("#inputCarYear").val(),
-                'driver': $("#inputCarDriver").val()
-            };
-            prepareSQLAdd(car, entityType);
-        });
+                    window.location.replace(config.urlBase + '/car/');
+                }.bind(this));
+            }
+        }
     });
 }
 
-function carFrontUpdate(entityType, id) {
-    $(document).ready(function () {
+function showCar(id) {
 
-        /* Add a listener to the form-submit-button */
-        $("#saveCar").click(function (ev) {
-            ev.preventDefault();
-            ev.stopImmediatePropagation();
-
-            /* Obtain form values to create a new Car */
-            var car = {
-                'id': id,
-                'maker': $("#inputCarMaker").val(),
-                'model': $("#inputCarModel").val(),
-                'year': $("#inputCarYear").val(),
-                'driver': $("#inputCarDriver").val()
-            };
-            prepareSQLUpdate(car, entityType);
-        });
+    return new Vue({
+        el: '#carPanel',
+        data: {
+            car: {
+                id: null,
+                maker: null,
+                model: null,
+                year: null,
+                driver: null
+            }
+        },
+        created: function () {
+            var url = config.urlBase + '/api/car/' + id;
+            $.get(url, function (data) {
+                this.car.id = data.id;
+                this.car.maker = data.maker;
+                this.car.model = data.model;
+                this.car.year = data.year;
+                this.car.driver = data.driver;
+            }.bind(this));
+        }
     });
 }
 
-function carFrontDelete(url, entityType, id) {
-    idbDeleteEntity(entityType, id, function () {
-        window.location.replace(url + '/' + entityType);
+function showAllCar() {
+
+    return new Vue({
+        el: '#carPanel',
+        data: {
+            cars: {}
+        },
+        created: function () {
+            var url = config.urlBase + '/api/car/';
+            $.get(url, function (data) {
+                this.cars = data;
+            }.bind(this));
+        }
+    });
+}
+
+function formEditCar(id) {
+
+    return new Vue({
+        el: '#carForm',
+        data: {
+            car: {}
+        },
+        created: function () {
+            var url = config.urlBase + '/api/car/' + id;
+            $.get(url, function (data) {
+                this.car = data;
+            }.bind(this));
+        },
+        methods: {
+            save: function (event) {
+                var car = {
+                    'id': this.car.id,
+                    'maker': this.car.maker,
+                    'model': this.car.model,
+                    'year': this.car.year,
+                    'driver': this.car.driver
+                };
+                update(car, 'car', function (error) {
+                    if (error) {
+                        console.log(error);
+                        return;
+                    }
+
+                    window.location.replace(config.urlBase + '/car/show/' + this.car.id);
+                }.bind(this));
+            }
+        }
+    });
+}
+
+function deleteCar(id) {
+    var url = config.urlBase + '/api/car/' + id;
+    $.ajax({
+        url: config.urlBase + '/api/car/' + id,
+        type: 'DELETE',
+        async: true,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+    idbDeleteEntity('car', id, function () {
+        window.location.replace(config.urlBase + '/car');
     });
 }

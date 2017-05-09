@@ -41,125 +41,46 @@ function displayHome(app, url, message) {
     app.url = url;
 }
 
-/* Prepares apiURL fetch ALL entity */
-function fetchAll(entityType) {
+//TODO : rework this with the correct functions names + search about avoiding multiple mass connections when syncing
+/* Synchronise IndexedDB & SQLite databases */
+function syncDatabase(entityTypes) {
+
+    serverTask(function () {
+        updateServer(entity, entityType, callback);
+    });
+
     pingServer(function (status, url) {
         if (status === 0) {
-            var apiURL = url + '/api/' + entityType;
-            displayEntityList(apiURL, entityType)
-        }
-        else {
-            //NO CONNECTION TO REMOTE DATABASE
-        }
-    });
-}
 
-/* Prepares apiURL fetch ONE entity */
-function fetchOne(entityType, id) {
-    pingServer(function (status, url) {
-        if (status === 0) {
-            var apiURL = url + '/api/' + entityType + '/' + id;
-            displayEntityList(apiURL, entityType)
-        }
-        else {
-            //NO CONNECTION TO REMOTE DATABASE
-        }
-    });
-}
+            /* For each entity type (car, driver...) */
+            for (const entityType of entityTypes) {
 
-/* Prepares apiURL create ONE entity */
-function createOne(entityType) {
-    pingServer(function (status, url) {
-        if (status === 0) {
-            var apiURL = url + '/api/' + entityType;
-            displayEntityList(apiURL, entityType)
-        }
-        else {
-            //NO CONNECTION TO REMOTE DATABASE
-        }
-    });
-}
+                /* We read every entity in our IndexedDb database */
+                idbGetAllEntities(entityType, function (entities) {
 
-/* Fetches data on our API, then displays it */
-function displayEntityList(apiURL, entityType) {
-    new Vue({
-        el: '#entityList',
-        data: {
-            entityType: entityType,
-            items: []
-        },
-        created: function () {
-            this.fetchData();
-        },
-        methods: {
-            fetchData: function () {
-                var self = this;
-                $.get(apiURL, function (data) {
-                    self.items = data;
-                });
+                    /* to add or update them to our SQLite database */
+                    for (var entity of entities) {
+
+                        /* we first check if our entity is already in our SQLite database,
+                         * if not, we add it */
+                        //TODO : Add delete function if entry is not in IDB but is in SQLite
+
+                        checkInSql(entity.id, url, entityType, function (data) {
+                            if (data === true) {
+                                updateInSql(entity, url, entityType, function (data) {
+                                    // TODO : Add error handling : console.log(data);
+                                });
+                            } else {
+                                addInSql(entity, url, entityType, function (data) {
+                                    // TODO : Add error handling : console.log(data);
+                                });
+                            }
+                        });
+                    }
+                })
             }
-        }
-    });
-}
-
-/* Prepares SQL & IndexedDB insertion */
-function prepareSQLAdd(entity, entityType) {
-
-    /* We check if we are still connected to our server application */
-    pingServer(function (status, url) {
-        if (status === 0) {
-
-            /* If we are, then insert the new Entity in both IndexedDb and SQLite */
-            idbAddEntity(entity, entityType, function (data) {
-                if (data) {
-                    console.log("IndexedDb insertion failed, aborting SQL insertion");
-                } else {
-                    addInSql(entity, url, entityType, function (data) {
-                        if (data.status === 201) {
-                            window.location.replace(url + '/' + entityType);
-                        } else {
-                            console.log(data);
-                        }
-                    });
-                }
-            });
         } else {
-            /* Else, we insert our new Entity only in IndexedDb */
-            idbAddEntity(entity, entityType, function (data) {
-                console.log("IndexedDb insertion successful");
-            });
-        }
-    });
-}
-
-/* Prepares SQL & IndexedDB update */
-function prepareSQLUpdate(entity, entityType) {
-
-    /* We check if we are still connected to our server application */
-    pingServer(function (status, url) {
-        if (status === 0) {
-            var id = entity.id;
-
-            /* If we are, then update the new Entity in both IndexedDb and SQLite */
-            idbUpdateEntity(entity, entityType, function (data) {
-                entity.id = id;
-                if (data) {
-                    console.log("IndexedDb update failed, aborting SQL update");
-                } else {
-                    updateInSql(entity, url, entityType, function (data) {
-                        if (data.status === 201) {
-                            window.location.replace(url + '/' + entityType);
-                        } else {
-                            console.log(data);
-                        }
-                    });
-                }
-            });
-        } else {
-            /* Else, we update our new Entity only in IndexedDb */
-            idbUpdateEntity(entity, entityType, function (data) {
-                console.log("IndexedDb update successful");
-            });
+            // do nothing if not connected, we'll try again in 5 seconds
         }
     });
 }

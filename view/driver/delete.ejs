@@ -1,8 +1,5 @@
 <% include ../layout/templates/header %>
 <script>
-    var entityType = 'driver';
-    pingServer(function (status, url) {
-        driverFrontDelete(url, entityType, <%= id %>);
-    })
+    deleteDriver(<%= id %>);
 </script>
 <% include ../layout/templates/footer %>

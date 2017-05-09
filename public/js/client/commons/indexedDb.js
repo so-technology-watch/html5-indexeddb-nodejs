@@ -59,3 +59,18 @@ function idbDeleteEntity(entityType, id, callback) {
         })
     }
 }
+/* (READ) Get all entities */
+function idbGetAllEntities(entityType, callback) {
+    if (entityType === 'car') {
+        db.car.toArray()
+            .then(function (entities) {
+                callback(entities)
+            })
+    } else if (entityType === 'driver') {
+        db.driver.toArray()
+            .then(function (entities) {
+                callback(entities)
+            })
+    }
+
+}

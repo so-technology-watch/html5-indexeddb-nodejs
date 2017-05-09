@@ -4,23 +4,23 @@
 
 <div class="container" id="entityList">
     <div class="panel panel-warning">
-        <div class="panel-heading"><h2>Edit Driver {{items.id}}</h2></div>
+        <div class="panel-heading"><h2>Edit Driver</h2></div>
         <div class="panel-body">
-            <form>
+            <form id="driverForm" v-on:submit.prevent="save">
                 <div class="form-group">
                     <label for="inputDriverFirstName">First name</label>
-                    <input type="text" class="form-control" id="inputDriverFirstName" v-bind:value="items.firstName">
+                    <input type="text" class="form-control" v-model="driver.firstName">
                 </div>
                 <div class="form-group">
                     <label for="inputDriverLastName">Last name</label>
-                    <input type="text" class="form-control" id="inputDriverLastName" v-bind:value="items.lastName">
+                    <input type="text" class="form-control" v-model="driver.lastName">
                 </div>
                 <div class="form-group">
                     <label for="inputDriverCar">Car</label>
-                    <input type="text" class="form-control" id="inputDriverCar" v-bind:value="items.car">
+                    <input type="text" class="form-control" v-model="driver.car">
                 </div>
                 <input type="submit" id="saveDriver" class="btn btn-warning" value="Update entity">
-                <a v-bind:href="'../../'+entityType">
+                <a href="'../../driver'">
                     <button type="button" class="btn btn-info">Back to the list</button>
                 </a>
             </form>
@@ -29,9 +29,7 @@
 </div>
 
 <script>
-    var entityType = 'driver';
-    fetchOne(entityType, <%= id %>);
-    driverFrontUpdate(entityType, <%= id %>);
+    formEditDriver(<%= id %>);
 </script>
 
 <% include ../layout/templates/footer %>

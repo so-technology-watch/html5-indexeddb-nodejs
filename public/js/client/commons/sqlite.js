@@ -2,29 +2,12 @@
  * SQLite Client application requests
  */
 
-/* (CREATE) Add an Entity */
-function addInSql(Entity, url, entityType, callback) {
+/* (READ) Checks if an Entity exists */
+function checkInSql(id, url, entityType, callback) {
     $.ajax({
-        url: url + '/api/' + entityType + '/create',
-        type: 'post',
+        url: url + '/api/' + entityType + '/exists/' + id,
+        type: 'get',
         dataType: 'json',
-        data: Entity,
-        success: function (data) {
-            callback(data);
-        },
-        error: function (error) {
-            callback(error);
-        }
-    });
-}
-
-/* (UPDATE) Edit an Entity */
-function updateInSql(Entity, url, entityType, callback) {
-    $.ajax({
-        url: url + '/api/' + entityType,
-        type: 'put',
-        dataType: 'json',
-        data: Entity,
         success: function (data) {
             callback(data);
         },

@@ -6,25 +6,29 @@
     <div class="panel panel-success">
         <div class="panel-heading"><h2>New Car</h2></div>
         <div class="panel-body">
-            <form>
+            <form id="carForm" v-on:submit.prevent="save">
                 <div class="form-group">
                     <label for="inputCarMaker">Maker</label>
-                    <input type="text" class="form-control" id="inputCarMaker" placeholder="Enter Car Maker">
+                    <input type="text" class="form-control"
+                           v-model="car.maker" placeholder="Enter Car Maker">
                 </div>
                 <div class="form-group">
                     <label for="inputCarModel">Model</label>
-                    <input type="text" class="form-control" id="inputCarModel" placeholder="Enter Car Model">
+                    <input type="text" class="form-control"
+                           v-model="car.model" placeholder="Enter Car Model">
                 </div>
                 <div class="form-group">
                     <label for="inputCarYear">Year</label>
-                    <input type="text" class="form-control" id="inputCarYear" placeholder="Enter Car Year">
+                    <input type="text" class="form-control"
+                           v-model="car.year" placeholder="Enter Car Year">
                 </div>
                 <div class="form-group">
                     <label for="inputCarDriver">Driver</label>
-                    <input type="text" class="form-control" id="inputCarDriver" placeholder="Enter Car Driver">
+                    <input type="text" class="form-control"
+                           v-model="car.driver" placeholder="Enter Car Driver">
                 </div>
                 <input type="submit" id="saveCar" class="btn btn-success" value="Add a new entity">
-                <a v-bind:href="'../../'+entityType">
+                <a href="'../../car'">
                     <button type="button" class="btn btn-info">Back to the list</button>
                 </a>
             </form>
@@ -33,9 +37,7 @@
 </div>
 
 <script>
-    var entityType = 'car';
-    createOne(entityType);
-    carFrontAdd(entityType);
+    formAddCar();
 </script>
 
 <% include ../layout/templates/footer %>

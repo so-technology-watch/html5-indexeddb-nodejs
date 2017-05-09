@@ -27,14 +27,12 @@ For more details, see the [Technological Plan](https://github.com/so-technology-
 
 ## Getting started
 
-0. Install this application (See Installation).
-1. Start the server with : `node index.js`
-2. Start your Web Browser and go to `http://localhost:3000`   
+1. Install this application (See Installation).
+2. Start the server with : `node index.js`
+3. Start your Web Browser and go to `http://localhost:3000`   
 Or connect Postman to the API at : `http://localhost:3000`
-3. Try the different "Cars" and "Drivers" web pages.  
-And the different routes of the API.
-
-Alternatively, you can use `node index.js YOUR_PORT_NUMBER` to start the server with a specific port.  
+4. Try the different "Cars" and "Drivers" web pages and the different routes of the API.
+  
 For more details, see the [Wiki documentation](https://github.com/so-technology-watch/html5-indexeddb-nodejs/wiki).
 
 ## Dependencies (installed via `npm install`)
@@ -63,4 +61,4 @@ For more details, see the [Wiki documentation](https://github.com/so-technology-
 
 ## License
 
-This project uses the LGPL v3 License (See the LICENSE file in this repository).
+This project uses the [LGPL v3 License](https://www.gnu.org/licenses/lgpl-3.0.en.html) (See the LICENSE file in this repository).
