@@ -1,4 +1,7 @@
-/* Prepares SQL & IndexedDB update */
+/**
+ * SQLite server API create function
+ * @params entity, entityType, callback
+ */
 function createServer(entity, entityType, callback) {
     var url = config.urlBase + '/api/' + entityType + '/create';
 
@@ -14,5 +17,4 @@ function createServer(entity, entityType, callback) {
             callback(error);
         }
     });
-
 }

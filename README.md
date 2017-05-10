@@ -5,7 +5,7 @@ It's purpose is to demonstrate an implementation of IndexedDB to make local data
 
 - Server Application : A NodeJS REST API using SQLite as a database (sqlite.db). The code is written in ES6 and uses Promises.
 
-- Client Application __(Partially Working)__ : A Web interface using IndexedDB as a database (using Dexie library).  
+- Client Application : A Web interface using IndexedDB as a database (using Dexie library).  
 Elements are displayed in views by VueJS.
   
 Additionally, an [Angular2 front](https://github.com/so-technology-watch/angular2-demo) is proposed by [Imad El Hitti](https://github.com/imadhy) (without the IndexedDB part).
@@ -46,7 +46,8 @@ For more details, see the [Wiki documentation](https://github.com/so-technology-
 *Sqlite3 : (Asynchronous, non-blocking SQLite3 bindings for Node.js.)
 ## Todo
 
-- Vue.JS/JQuery front : IndexedDB synchronisation.
+- Add/Refactor comments in code.
+- Refactor front code.
 - Documentation.
 
 ## Credits

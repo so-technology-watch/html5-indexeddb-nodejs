@@ -1,6 +1,11 @@
 /**
  * Driver Front functions
  */
+
+/**
+ * Adds entity creation vue form
+ * @returns {*}
+ */
 function formAddDriver() {
 
     return new Vue({
@@ -28,6 +33,11 @@ function formAddDriver() {
     });
 }
 
+/**
+ * Adds entity details in a vue instance
+ * @param id
+ * @returns {*}
+ */
 function showDriver(id) {
 
     return new Vue({
@@ -52,6 +62,10 @@ function showDriver(id) {
     });
 }
 
+/**
+ * Adds all entities in a vue instance
+ * @returns {*}
+ */
 function showAllDriver() {
 
     return new Vue({
@@ -60,14 +74,18 @@ function showAllDriver() {
             drivers: {}
         },
         created: function () {
-            var url = config.urlBase + '/api/driver/';
-            $.get(url, function (data) {
+            getAllServer('driver', function (data) {
                 this.drivers = data;
-            }.bind(this));
+            }.bind(this))
         }
     });
 }
 
+/**
+ * Adds entity edition vue form
+ * @param id
+ * @returns {*}
+ */
 function formEditDriver(id) {
 
     return new Vue({
@@ -76,10 +94,9 @@ function formEditDriver(id) {
             driver: {}
         },
         created: function () {
-            var url = config.urlBase + '/api/driver/' + id;
-            $.get(url, function (data) {
+            getOneServer(id, 'driver', function (data) {
                 this.driver = data;
-            }.bind(this));
+            }.bind(this))
         },
         methods: {
             save: function (event) {
@@ -102,19 +119,15 @@ function formEditDriver(id) {
     });
 }
 
+/**
+ * IndexedDB & SQLite Entity deletion function
+ * @param id
+ */
 function deleteDriver(id) {
-    var url = config.urlBase + '/api/driver/' + id;
-    $.ajax({
-        url: config.urlBase + '/api/driver/' + id,
-        type: 'DELETE',
-        async: true,
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (error) {
-            console.log(error);
-        }
+    deleteServer('driver', id, function (data) {
+        console.log(data);
     });
+
     idbDeleteEntity('driver', id, function () {
         window.location.replace(config.urlBase + '/driver');
     });

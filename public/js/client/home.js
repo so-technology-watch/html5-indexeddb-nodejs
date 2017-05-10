@@ -14,20 +14,14 @@ $(document).ready(function () {
         }
     });
 
-    /* List of our entities */
-    var entities = [
-        'car',
-        'driver'
-    ];
-
     /* Initial connection attempt to the server */
     connectionStatus(app);
 
-    /* Every 5 seconds, we try to synchronise our databases */
-    /*
-     setInterval(function () {
-     connectionStatus(app);
-     syncDatabase(entities);
-     }, 5000);
-     */
+    // Every 5 seconds, we try to synchronise our databases
+    setInterval(function () {
+        // Display connection status
+        connectionStatus(app);
+        // Try to synchronise the databases
+        syncDatabase();
+    }, 5000);
 });

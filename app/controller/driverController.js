@@ -73,13 +73,23 @@ class DriverController {
      */
     create(req, res) {
         let driver = new Driver();
+        if (req.body.id) {
+            driver.id = req.body.id;
+        }
         driver.firstName = req.body.firstName;
         driver.lastName = req.body.lastName;
         driver.car = req.body.car;
 
-        return this.driverDao.create(driver)
-            .then(this.common.editSuccess(res))
-            .catch(this.common.serverError(res));
+        if (req.body.id) {
+            return this.driverDao.createWithId(driver)
+                .then(this.common.editSuccess(res))
+                .catch(this.common.serverError(res));
+        }
+        else {
+            return this.driverDao.create(driver)
+                .then(this.common.editSuccess(res))
+                .catch(this.common.serverError(res));
+        }
     };
 
     /**

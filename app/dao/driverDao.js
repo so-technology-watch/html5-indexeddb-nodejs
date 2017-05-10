@@ -87,6 +87,23 @@ class DriverDao {
     };
 
     /**
+     * Creates the given entity with a provided in the database
+     * @params Driver
+     * returns database insertion status
+     */
+    createWithId(Driver) {
+        let sqlRequest = "INSERT into driver (id, firstName, lastName, car) " +
+            "VALUES ($id, $firstName, $lastName, $car)";
+        let sqlParams = {
+            $id: Driver.id,
+            $firstName: Driver.firstName,
+            $lastName: Driver.lastName,
+            $car: Driver.car
+        };
+        return this.common.run(sqlRequest, sqlParams);
+    };
+
+    /**
      * Deletes an entity using its Id / Primary Key
      * @params id
      * returns database deletion status

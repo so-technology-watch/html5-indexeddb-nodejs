@@ -2,7 +2,10 @@
  * Client common api functions
  */
 
-/* Check if the client can connect to the server application */
+/**
+ * Check if the client can connect to the server application
+ * @param callback
+ */
 function pingServer(callback) {
     var status;
     $.ajax({
@@ -10,19 +13,22 @@ function pingServer(callback) {
         type: 'GET',
         async: true,
         success: function (data) {
-            /* Ready for SQLite & IndexedDB insertion. */
+            // Ready for SQLite & IndexedDB insertion.
             status = 0;
             callback(status, data.url);
         },
         error: function () {
-            /* Ready for IndexedDB insertion only. */
+            // Ready for IndexedDB insertion only.
             status = 1;
             callback(status);
         }
     });
 }
 
-/* Uses pingServer function to display server connection status*/
+/**
+ * Uses pingServer function to display server connection status
+ * @param app
+ */
 function connectionStatus(app) {
     pingServer(function (status, url) {
         if (status === 0) {
@@ -35,52 +41,63 @@ function connectionStatus(app) {
     })
 }
 
-/* Display connection status, server url & port to the client */
+/**
+ * Display connection status, server url & port to the client
+ * @params app, url, message
+ */
 function displayHome(app, url, message) {
     app.message = message;
     app.url = url;
 }
 
-//TODO : rework this with the correct functions names + search about avoiding multiple mass connections when syncing
-/* Synchronise IndexedDB & SQLite databases */
-function syncDatabase(entityTypes) {
+// Synchronise IndexedDB & SQLite databases
+function syncDatabase() {
 
     serverTask(function () {
-        updateServer(entity, entityType, callback);
-    });
+        // For each entity type (car, driver...)
+        for (const entityType of config.entities) {
 
-    pingServer(function (status, url) {
-        if (status === 0) {
+            // We read every entity in our IndexedDb database
+            idbGetAllEntities(entityType, function (idbEntities) {
 
-            /* For each entity type (car, driver...) */
-            for (const entityType of entityTypes) {
+                // We read every entity in our SQLite database
+                getAllServer(entityType, function (sqlEntities) {
 
-                /* We read every entity in our IndexedDb database */
-                idbGetAllEntities(entityType, function (entities) {
+                    // For each IndexedDB entity, we check if it is also present in our SQLite database
+                    for (var i = 0; i < idbEntities.length; i++) {
 
-                    /* to add or update them to our SQLite database */
-                    for (var entity of entities) {
-
-                        /* we first check if our entity is already in our SQLite database,
-                         * if not, we add it */
-                        //TODO : Add delete function if entry is not in IDB but is in SQLite
-
-                        checkInSql(entity.id, url, entityType, function (data) {
-                            if (data === true) {
-                                updateInSql(entity, url, entityType, function (data) {
-                                    // TODO : Add error handling : console.log(data);
-                                });
-                            } else {
-                                addInSql(entity, url, entityType, function (data) {
-                                    // TODO : Add error handling : console.log(data);
-                                });
-                            }
+                        var result = $.grep(sqlEntities, function (e) {
+                            return e.id === idbEntities[i].id;
                         });
+
+                        if (result.length === 0) {
+                            // if not found in SQL, then we add it
+                            createServer(idbEntities[i], entityType, function (data) {
+                                console.log(data);
+                            })
+
+                        } else {
+                            // if found in SQL, then do nothing for now (later : check a timestamp value for update)
+                            // console.log('found')
+                            // later : access the entity id property using result[0].id
+                        }
                     }
-                })
-            }
-        } else {
-            // do nothing if not connected, we'll try again in 5 seconds
+                    // For each SQLite entity, we check if it is also present in our IndexedDB database
+                    for (var j = 0; j < sqlEntities.length; j++) {
+
+                        var result = $.grep(idbEntities, function (e) {
+                            return e.id === sqlEntities[j].id;
+                        });
+
+                        if (result.length === 0) {
+                            // if not found in IndexedDB, then we delete it from SQLite
+                            deleteServer(sqlEntities[j].id, entityType, function (data) {
+                                console.log(data);
+                            })
+                        }
+                    }
+                });
+            });
         }
     });
 }

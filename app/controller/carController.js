@@ -76,14 +76,25 @@ class CarController {
      */
     create(req, res) {
         let car = new Car();
+        if (req.body.id) {
+            car.id = req.body.id;
+        }
         car.maker = req.body.maker;
         car.model = req.body.model;
         car.year = req.body.year;
         car.driver = req.body.driver;
 
-        return this.carDao.create(car)
-            .then(this.common.editSuccess(res))
-            .catch(this.common.serverError(res));
+        if (req.body.id) {
+            return this.carDao.createWithId(car)
+                .then(this.common.editSuccess(res))
+                .catch(this.common.serverError(res));
+        }
+        else {
+            return this.carDao.create(car)
+                .then(this.common.editSuccess(res))
+                .catch(this.common.serverError(res));
+        }
+
     };
 
     /**
