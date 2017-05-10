@@ -48,7 +48,6 @@ For more details, see the [Wiki documentation](https://github.com/so-technology-
 
 - Add/Refactor comments in code.
 - Refactor front code.
-- Documentation.
 
 ## Credits
 
