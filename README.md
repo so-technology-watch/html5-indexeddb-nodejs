@@ -14,7 +14,7 @@ For more details, see the [Technological Plan](https://github.com/so-technology-
 
 ## Installation
 
-1. [Download](https://github.com/so-technology-watch/html5-indexeddb-nodejs/releases) or clone this repository : `git clone https://github.com/so-technology-watch/html5-indexeddb-nodejs.git`  
+1. [Download](https://github.com/so-technology-watch/html5-indexeddb-nodejs/archive/master.zip) or clone this repository : `git clone https://github.com/so-technology-watch/html5-indexeddb-nodejs.git`  
 2. Then install its dependencies : `npm install`
 
 ## Requirements
