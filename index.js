@@ -15,6 +15,14 @@ app.listen(port, function () {
     console.log("Server listening on port : " + port);
 });
 
+// Authorize external access
+const allowCrossDomain = function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+
 // Express configuration
 app.set('views', __dirname + '/view');
 app.use(express.static(__dirname + '/public'));
@@ -27,13 +35,5 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 // Router configuration
-app.use(require('./app/routes/Router'));
-
-// Authorize external access
-const allowCrossDomain = function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-};
 app.use(allowCrossDomain);
+app.use(require('./app/routes/Router'));
