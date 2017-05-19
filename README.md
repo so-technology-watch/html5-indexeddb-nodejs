@@ -1,4 +1,4 @@
-# Html5 IndexedDB NodeJS
+# IDBNodeSQL
 
 This project is a proof of concept (POC).
 It's purpose is to demonstrate an implementation of IndexedDB to make local data persistence and to synchronize it to a remote SQLite database using a NodeJS REST API.

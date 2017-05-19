@@ -1,30 +1,39 @@
-/* Load modules */
+// Load modules
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-/* Database configuration */
+// Database configuration
 const database = require('./app/config/dbconfig');
 
-/* Init database */
+// Init database
 database.init();
 
-/* Init server listening */
+// Init server listening
 const port = process.argv[2] || 3000;
 app.listen(port, function () {
     console.log("Server listening on port : " + port);
 });
 
-/* Express configuration */
+// Express configuration
 app.set('views', __dirname + '/view');
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-/* Rendering configuration */
+// Rendering configuration
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-/* Router configuration */
+// Router configuration
 app.use(require('./app/routes/Router'));
+
+// Authorize external access
+const allowCrossDomain = function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+app.use(allowCrossDomain);
