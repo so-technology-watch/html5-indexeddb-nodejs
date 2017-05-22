@@ -15,7 +15,7 @@ let init = function () {
         "car_id INTEGER PRIMARY KEY AUTOINCREMENT," +
         "car_maker TEXT," +
         "car_model TEXT," +
-        "car_year INTEGER," +
+        "car_year DATE," +
         "driver_id INTEGER," +
         "FOREIGN KEY(driver_id) REFERENCES driver(driver_id)" +
         ");");
@@ -33,4 +33,3 @@ module.exports = {
     init: init,
     db: db
 };
-
