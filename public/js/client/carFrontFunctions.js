@@ -78,7 +78,9 @@ function showAllCar() {
         },
         created: function () {
             getAllServer('car', function (data) {
-                this.cars = data;
+                    if(data[0]) {
+                        this.cars = data;
+                    }
             }.bind(this))
         }
     });
@@ -128,11 +130,9 @@ function formEditCar(id) {
  * @param id
  */
 function deleteCar(id) {
-    deleteServer('car', id, function (data) {
-        console.log(data);
-    });
-
-    idbDeleteEntity('car', id, function () {
-        window.location.replace(config.urlBase + '/car');
+    deleteServer(id, 'car', function (data) {
+        idbDeleteEntity('car', id, function () {
+            window.location.replace(config.urlBase + '/car');
+        });
     });
 }

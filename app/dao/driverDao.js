@@ -19,10 +19,10 @@ class DriverDao {
      * @return entity
      */
     findById(id) {
-        let sqlRequest = "SELECT id, firstName, lastName, car FROM driver WHERE id=$id";
+        let sqlRequest = "SELECT driver_id, driver_firstName, driver_lastName, car_id FROM driver WHERE driver_id=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Driver(row.id, row.firstName, row.lastName, row.car));
+            new Driver(row.driver_id, row.driver_firstName, row.driver_lastName, row.car_id));
     };
 
     /**
@@ -34,7 +34,7 @@ class DriverDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let drivers = [];
             for (const row of rows) {
-                drivers.push(new Driver(row.id, row.firstName, row.lastName, row.car));
+                drivers.push(new Driver(row.driver_id, row.driver_firstName, row.driver_lastName, row.car_id));
             }
             return drivers;
         });
@@ -56,10 +56,10 @@ class DriverDao {
      */
     update(Driver) {
         let sqlRequest = "UPDATE driver SET " +
-            "firstName=$firstName, " +
-            "lastName=$lastName, " +
-            "car=$car " +
-            "WHERE id=$id";
+            "driver_firstName=$firstName, " +
+            "driver_lastName=$lastName, " +
+            "car_id=$car " +
+            "WHERE driver_id=$id";
 
         let sqlParams = {
             $firstName: Driver.firstName,
@@ -76,7 +76,7 @@ class DriverDao {
      * returns database insertion status
      */
     create(Driver) {
-        let sqlRequest = "INSERT into driver (firstName, lastName, car) " +
+        let sqlRequest = "INSERT into driver (driver_firstName, driver_lastName, car_id) " +
             "VALUES ($firstName, $lastName, $car)";
         let sqlParams = {
             $firstName: Driver.firstName,
@@ -92,7 +92,7 @@ class DriverDao {
      * returns database insertion status
      */
     createWithId(Driver) {
-        let sqlRequest = "INSERT into driver (id, firstName, lastName, car) " +
+        let sqlRequest = "INSERT into driver (driver_id, driver_firstName, driver_lastName, car_id) " +
             "VALUES ($id, $firstName, $lastName, $car)";
         let sqlParams = {
             $id: Driver.id,
@@ -109,7 +109,7 @@ class DriverDao {
      * returns database deletion status
      */
     deleteById(id) {
-        let sqlRequest = "DELETE FROM driver WHERE id=$id";
+        let sqlRequest = "DELETE FROM driver WHERE driver_id=$id";
         let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -120,7 +120,7 @@ class DriverDao {
      * returns database entry existence status (true/false)
      */
     exists(id) {
-        let sqlRequest = "SELECT (count(*) > 0) as found FROM driver WHERE id=$id";
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM driver WHERE driver_id=$id";
         let sqlParams = {$id: id};
         return this.common.existsOne(sqlRequest, sqlParams);
     };

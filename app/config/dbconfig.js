@@ -10,20 +10,23 @@ let db = new sqlite3.Database('./sqlite.db');
 
 /* Init car and driver tables if they don't exist */
 let init = function () {
+
     db.run("CREATE TABLE if not exists car (" +
-        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        " maker TEXT," +
-        " model TEXT," +
-        " year INT," +
-        " driver INT" +
-        ")");
+        "car_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        "car_maker TEXT," +
+        "car_model TEXT," +
+        "car_year INTEGER," +
+        "driver_id INTEGER," +
+        "FOREIGN KEY(driver_id) REFERENCES driver(driver_id)" +
+        ");");
 
     db.run("CREATE TABLE if not exists driver (" +
-        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        " firstName TEXT," +
-        " lastName TEXT," +
-        " car INT" +
-        ")");
+        "driver_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        "driver_firstName TEXT," +
+        "driver_lastName TEXT," +
+        "car_id INTEGER," +
+        "FOREIGN KEY(car_id) REFERENCES car(car_id)" +
+        ");");
 };
 
 module.exports = {

@@ -75,7 +75,9 @@ function showAllDriver() {
         },
         created: function () {
             getAllServer('driver', function (data) {
-                this.drivers = data;
+                if(data[0]) {
+                    this.drivers = data;
+                }
             }.bind(this))
         }
     });
@@ -124,11 +126,9 @@ function formEditDriver(id) {
  * @param id
  */
 function deleteDriver(id) {
-    deleteServer('driver', id, function (data) {
-        console.log(data);
-    });
-
-    idbDeleteEntity('driver', id, function () {
-        window.location.replace(config.urlBase + '/driver');
+    deleteServer(id, 'driver', function (data) {
+        idbDeleteEntity('driver', id, function () {
+            window.location.replace(config.urlBase + '/driver');
+        });
     });
 }
