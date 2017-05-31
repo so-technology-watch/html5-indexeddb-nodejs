@@ -95,7 +95,7 @@ class CarDao {
         let sqlRequest = "INSERT into car (car_id, car_maker, car_model, car_year) " +
             "VALUES ($id, $maker, $model, $year)";
         let sqlParams = {
-            $id: Car.id,
+            $id: Car.car_id,
             $maker: Car.car_maker,
             $model: Car.car_model,
             $year: Car.car_year

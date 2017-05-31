@@ -73,7 +73,7 @@ class DriverController {
      */
     create(req, res) {
         let driver = new Driver();
-        if (req.body.id) {
+        if (req.body.driver_id) {
             driver.id = req.body.driver_id;
         }
         driver.driver_firstName = req.body.driver_firstName;

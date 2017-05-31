@@ -25,6 +25,8 @@ let init = function () {
         "car_id INTEGER," +
         "FOREIGN KEY(car_id) REFERENCES car(car_id)" +
         ");");
+
+    db.run ("PRAGMA foreign_keys=ON; ");
 };
 
 module.exports = {

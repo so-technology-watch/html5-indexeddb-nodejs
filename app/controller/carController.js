@@ -75,7 +75,7 @@ class CarController {
      */
     create(req, res) {
         let car = new Car();
-        if (req.body.id) {
+        if (req.body.car_id) {
             car.car_id = req.body.car_id;
         }
         car.car_maker = req.body.car_maker;
