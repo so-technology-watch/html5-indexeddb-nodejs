@@ -58,10 +58,10 @@ class CarController {
      */
     update(req, res) {
         let car = new Car();
-        car.id = req.body.id;
-        car.maker = req.body.maker;
-        car.model = req.body.model;
-        car.year = req.body.year;
+        car.car_id = req.body.car_id;
+        car.car_maker = req.body.car_maker;
+        car.car_model = req.body.car_model;
+        car.car_year = req.body.car_year;
 
         return this.carDao.update(car)
             .then(this.common.editSuccess(res))
@@ -76,13 +76,13 @@ class CarController {
     create(req, res) {
         let car = new Car();
         if (req.body.id) {
-            car.id = req.body.id;
+            car.car_id = req.body.car_id;
         }
-        car.maker = req.body.maker;
-        car.model = req.body.model;
-        car.year = req.body.year;
+        car.car_maker = req.body.car_maker;
+        car.car_model = req.body.car_model;
+        car.car_year = req.body.car_year;
 
-        if (req.body.id) {
+        if (req.body.car_id) {
             return this.carDao.createWithId(car)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));

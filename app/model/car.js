@@ -4,10 +4,10 @@
 
 class Car {
     constructor(id, maker, model, year, driver) {
-        this.id = id;
-        this.maker = maker;
-        this.model = model;
-        this.year = year;
+        this.car_id = id;
+        this.car_maker = maker;
+        this.car_model = model;
+        this.car_year = year;
     }
 }
 

@@ -62,10 +62,10 @@ class DriverDao {
             "WHERE driver_id=$id";
 
         let sqlParams = {
-            $firstName: Driver.firstName,
-            $lastName: Driver.lastName,
-            $car: Driver.car,
-            $id: Driver.id
+            $firstName: Driver.driver_firstName,
+            $lastName: Driver.driver_lastName,
+            $car: Driver.driver_car,
+            $id: Driver.driver_id
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -79,9 +79,9 @@ class DriverDao {
         let sqlRequest = "INSERT into driver (driver_firstName, driver_lastName, car_id) " +
             "VALUES ($firstName, $lastName, $car)";
         let sqlParams = {
-            $firstName: Driver.firstName,
-            $lastName: Driver.lastName,
-            $car: Driver.car
+            $firstName: Driver.driver_firstName,
+            $lastName: Driver.driver_lastName,
+            $car: Driver.driver_car
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -96,9 +96,9 @@ class DriverDao {
             "VALUES ($id, $firstName, $lastName, $car)";
         let sqlParams = {
             $id: Driver.id,
-            $firstName: Driver.firstName,
-            $lastName: Driver.lastName,
-            $car: Driver.car
+            $firstName: Driver.driver_firstName,
+            $lastName: Driver.driver_lastName,
+            $car: Driver.driver_car
         };
         return this.common.run(sqlRequest, sqlParams);
     };

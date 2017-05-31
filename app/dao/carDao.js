@@ -62,10 +62,10 @@ class CarDao {
             "WHERE car_id=$id";
 
         let sqlParams = {
-            $maker: Car.maker,
-            $model: Car.model,
-            $year: Car.year,
-            $id: Car.id,
+            $maker: Car.car_maker,
+            $model: Car.car_model,
+            $year: Car.car_year,
+            $id: Car.car_id,
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -79,9 +79,9 @@ class CarDao {
         let sqlRequest = "INSERT into car (car_maker, car_model, car_year) " +
             "VALUES ($maker, $model, $year)";
         let sqlParams = {
-            $maker: Car.maker,
-            $model: Car.model,
-            $year: Car.year
+            $maker: Car.car_maker,
+            $model: Car.car_model,
+            $year: Car.car_year
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -93,12 +93,12 @@ class CarDao {
      */
     createWithId(Car) {
         let sqlRequest = "INSERT into car (car_id, car_maker, car_model, car_year) " +
-            "VALUES ($id, $maker, $model, $year, $driver)";
+            "VALUES ($id, $maker, $model, $year)";
         let sqlParams = {
             $id: Car.id,
-            $maker: Car.maker,
-            $model: Car.model,
-            $year: Car.year
+            $maker: Car.car_maker,
+            $model: Car.car_model,
+            $year: Car.car_year
         };
         return this.common.run(sqlRequest, sqlParams);
     };
