@@ -19,10 +19,10 @@ class CarDao {
      * @return entity
      */
     findById(id) {
-        let sqlRequest = "SELECT car_id, car_maker, car_model, car_year, driver_id FROM car WHERE car_id=$id";
+        let sqlRequest = "SELECT car_id, car_maker, car_model, car_year FROM car WHERE car_id=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Car(row.car_id, row.car_maker, row.car_model, row.car_year, row.driver_id));
+            new Car(row.car_id, row.car_maker, row.car_model, row.car_year));
     };
 
     /**
@@ -34,7 +34,7 @@ class CarDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let cars = [];
             for (const row of rows) {
-                cars.push(new Car(row.car_id, row.car_maker, row.car_model, row.car_year, row.driver_id));
+                cars.push(new Car(row.car_id, row.car_maker, row.car_model, row.car_year));
             }
             return cars;
         });
@@ -58,16 +58,14 @@ class CarDao {
         let sqlRequest = "UPDATE car SET " +
             "car_maker=$maker, " +
             "car_model=$model, " +
-            "car_year=$year, " +
-            "driver_id=$driver " +
+            "car_year=$year " +
             "WHERE car_id=$id";
 
         let sqlParams = {
             $maker: Car.maker,
             $model: Car.model,
             $year: Car.year,
-            $driver: Car.driver,
-            $id: Car.id
+            $id: Car.id,
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -78,13 +76,12 @@ class CarDao {
      * returns database insertion status
      */
     create(Car) {
-        let sqlRequest = "INSERT into car (car_maker, car_model, car_year, driver_id) " +
-            "VALUES ($maker, $model, $year, $driver)";
+        let sqlRequest = "INSERT into car (car_maker, car_model, car_year) " +
+            "VALUES ($maker, $model, $year)";
         let sqlParams = {
             $maker: Car.maker,
             $model: Car.model,
-            $year: Car.year,
-            $driver: Car.driver
+            $year: Car.year
         };
         return this.common.run(sqlRequest, sqlParams);
     };
@@ -95,14 +92,13 @@ class CarDao {
      * returns database insertion status
      */
     createWithId(Car) {
-        let sqlRequest = "INSERT into car (car_id, car_maker, car_model, car_year, driver_id) " +
+        let sqlRequest = "INSERT into car (car_id, car_maker, car_model, car_year) " +
             "VALUES ($id, $maker, $model, $year, $driver)";
         let sqlParams = {
             $id: Car.id,
             $maker: Car.maker,
             $model: Car.model,
-            $year: Car.year,
-            $driver: Car.driver
+            $year: Car.year
         };
         return this.common.run(sqlRequest, sqlParams);
     };

@@ -62,7 +62,6 @@ class CarController {
         car.maker = req.body.maker;
         car.model = req.body.model;
         car.year = req.body.year;
-        car.driver = req.body.driver;
 
         return this.carDao.update(car)
             .then(this.common.editSuccess(res))
@@ -82,7 +81,6 @@ class CarController {
         car.maker = req.body.maker;
         car.model = req.body.model;
         car.year = req.body.year;
-        car.driver = req.body.driver;
 
         if (req.body.id) {
             return this.carDao.createWithId(car)

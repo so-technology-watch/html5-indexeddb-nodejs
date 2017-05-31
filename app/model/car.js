@@ -8,7 +8,6 @@ class Car {
         this.maker = maker;
         this.model = model;
         this.year = year;
-        this.driver = driver;
     }
 }
 
