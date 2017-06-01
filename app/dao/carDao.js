@@ -124,7 +124,7 @@ class CarDao {
     exists(id) {
         let sqlRequest = "SELECT (count(*) > 0) as found FROM car WHERE car_id=$id";
         let sqlParams = {$id: id};
-        return this.common.run(sqlRequest, sqlParams);
+        return this.common.existsOne(sqlRequest, sqlParams);
     };
 }
 

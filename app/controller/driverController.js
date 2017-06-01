@@ -23,7 +23,7 @@ class DriverController {
      * @return entity
      */
     findById(req, res) {
-        let id = req.params.id;
+        let id = req.params.driver_id;
         this.driverDao.findById(id)
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
@@ -98,7 +98,7 @@ class DriverController {
      * returns database deletion status
      */
     deleteById(req, res) {
-        let id = req.params.id;
+        let id = req.params.driver_id;
 
         this.driverDao.deleteById(id)
             .then(this.common.editSuccess(res))
@@ -111,7 +111,7 @@ class DriverController {
      * @return
      */
     exists(req, res) {
-        let id = req.params.id;
+        let id = req.params.driver_id;
 
         this.driverDao.exists(id)
             .then(this.common.existsSuccess(res))

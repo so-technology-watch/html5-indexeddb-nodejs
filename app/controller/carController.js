@@ -23,7 +23,7 @@ class CarController {
      * @return entity
      */
     findById(req, res) {
-        let id = req.params.id;
+        let id = req.params.car_id;
 
         this.carDao.findById(id)
             .then(this.common.findSuccess(res))
@@ -58,7 +58,7 @@ class CarController {
      */
     update(req, res) {
         let car = new Car();
-        car.car_id = req.body.car_id;
+        car.car_id = req.params.car_id;
         car.car_maker = req.body.car_maker;
         car.car_model = req.body.car_model;
         car.car_year = req.body.car_year;
@@ -100,7 +100,7 @@ class CarController {
      * returns database deletion status
      */
     deleteById(req, res) {
-        let id = req.params.id;
+        let id = req.params.car_id;
 
         this.carDao.deleteById(id)
             .then(this.common.editSuccess(res))
@@ -113,7 +113,7 @@ class CarController {
      * @return
      */
     exists(req, res) {
-        let id = req.params.id;
+        let id = req.params.car_id;
 
         this.carDao.exists(id)
             .then(this.common.existsSuccess(res))

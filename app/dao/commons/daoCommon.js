@@ -43,7 +43,6 @@ class Common {
                         new DaoError(404, "Entity not found")
                     );
                 } else {
-                    console.log(stmt);
                     let row = rows[0];
                     resolve(row);
                 }

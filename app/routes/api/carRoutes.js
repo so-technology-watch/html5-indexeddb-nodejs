@@ -13,11 +13,11 @@ router.get('/count', function (req, res) {
     carController.countAll(res);
 });
 
-router.get('/exists/:id', function (req, res) {
+router.get('/exists/:car_id', function (req, res) {
     carController.exists(req, res);
 });
 
-router.get('/:id', function (req, res) {
+router.get('/:car_id', function (req, res) {
     carController.findById(req, res);
 });
 
@@ -25,7 +25,7 @@ router.get('/', function (req, res) {
     carController.findAll(res);
 });
 
-router.put('/:id', function (req, res) {
+router.put('/:car_id', function (req, res) {
     carController.update(req, res);
 });
 
@@ -33,7 +33,7 @@ router.post('/create', function (req, res) {
     carController.create(req, res);
 });
 
-router.delete('/:id', function (req, res) {
+router.delete('/:car_id', function (req, res) {
     carController.deleteById(req, res);
 });
 
