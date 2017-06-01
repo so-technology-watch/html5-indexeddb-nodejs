@@ -78,12 +78,13 @@ class DriverDao {
     create(Driver) {
         let sqlRequest = "INSERT into driver (driver_firstName, driver_lastName, car_id) " +
             "VALUES ($firstName, $lastName, $car)";
+        let sqlRequest2 = "SELECT driver_id, driver_firstName, driver_lastName, car_id FROM driver WHERE driver_id=$id";
         let sqlParams = {
             $firstName: Driver.driver_firstName,
             $lastName: Driver.driver_lastName,
             $car: Driver.driver_car
         };
-        return this.common.run(sqlRequest, sqlParams);
+        return this.common.run(sqlRequest, sqlParams, sqlRequest2);
     };
 
     /**
@@ -94,13 +95,14 @@ class DriverDao {
     createWithId(Driver) {
         let sqlRequest = "INSERT into driver (driver_id, driver_firstName, driver_lastName, car_id) " +
             "VALUES ($id, $firstName, $lastName, $car)";
+        let sqlRequest2 = "SELECT driver_id, driver_firstName, driver_lastName, car_id FROM driver WHERE driver_id=$id";
         let sqlParams = {
             $id: Driver.id,
             $firstName: Driver.driver_firstName,
             $lastName: Driver.driver_lastName,
             $car: Driver.driver_car
         };
-        return this.common.run(sqlRequest, sqlParams);
+        return this.common.run(sqlRequest, sqlParams, sqlRequest2);
     };
 
     /**

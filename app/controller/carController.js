@@ -86,8 +86,7 @@ class CarController {
             return this.carDao.createWithId(car)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));
-        }
-        else {
+        } else {
             return this.carDao.create(car)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));

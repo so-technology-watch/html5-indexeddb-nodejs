@@ -43,6 +43,7 @@ class Common {
                         new DaoError(404, "Entity not found")
                     );
                 } else {
+                    console.log(stmt);
                     let row = rows[0];
                     resolve(row);
                 }
@@ -69,14 +70,30 @@ class Common {
         });
     }
 
-    run(sqlRequest, sqlParams) {
+    run(sqlRequest, sqlParams, sqlRequest2 = null) {
         return new Promise(function (resolve, reject) {
             let stmt = database.db.prepare(sqlRequest);
             stmt.run(sqlParams, function (err) {
                 if (this.changes === 1) {
-                    resolve(
-                        new DaoError(201, this.lastID)
-                    );
+                    if (sqlRequest2) {
+                        let stmt2 = database.db.prepare(sqlRequest2);
+                        stmt2.all({$id: this.lastID}, function (err, rows) {
+                            if (err) {
+                                console.log(err);
+                                reject(
+                                    new DaoError(500, "Internal server error")
+                                );
+                            } else {
+                                resolve(
+                                    rows[0]
+                                );
+                            }
+                        });
+                    } else {
+                        resolve(
+                            new DaoError(201, "Success")
+                        )
+                    }
                 } else if (this.changes === 0) {
                     reject(
                         new DaoError(404, "Entity not found")
