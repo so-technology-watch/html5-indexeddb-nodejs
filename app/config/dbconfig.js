@@ -23,7 +23,7 @@ let init = function () {
         "driver_firstName TEXT," +
         "driver_lastName TEXT," +
         "car_id INTEGER," +
-        "FOREIGN KEY(car_id) REFERENCES car(car_id)" +
+        "FOREIGN KEY(car_id) REFERENCES car(car_id) ON DELETE SET NULL" +
         ");");
 
     db.run ("PRAGMA foreign_keys=ON; ");

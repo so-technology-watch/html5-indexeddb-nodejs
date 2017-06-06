@@ -55,12 +55,7 @@ class CarDao {
      * @return true if the entity has been updated, false if not found and not updated
      */
     update(Car) {
-        let sqlRequest = "UPDATE car SET " +
-            "car_maker=$maker, " +
-            "car_model=$model, " +
-            "car_year=$year " +
-            "WHERE car_id=$id";
-
+        let sqlRequest = "UPDATE car SET car_maker=$maker, car_model=$model, car_year=$year WHERE car_id=$id";
         let sqlParams = {
             $maker: Car.car_maker,
             $model: Car.car_model,
