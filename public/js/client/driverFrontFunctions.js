@@ -16,9 +16,9 @@ function formAddDriver() {
         methods: {
             save: function () {
                 var driver = {
-                    'firstName': this.driver.firstName,
-                    'lastName': this.driver.lastName,
-                    'car': this.driver.car
+                    'driver_firstName': this.driver.driver_firstName,
+                    'driver_lastName': this.driver.driver_lastName,
+                    'driver_car': this.driver.driver_car
                 };
                 create(driver, 'driver', function (error) {
                     if (error) {
@@ -44,19 +44,19 @@ function showDriver(id) {
         el: '#driverPanel',
         data: {
             driver: {
-                id: null,
-                firstName: null,
-                lastName: null,
-                car: null
+                driver_id: null,
+                driver_firstName: null,
+                driver_lastName: null,
+                driver_car: null
             }
         },
         created: function () {
             var url = config.urlBase + '/api/driver/' + id;
             $.get(url, function (data) {
-                this.driver.id = data.id;
-                this.driver.firstName = data.firstName;
-                this.driver.lastName = data.lastName;
-                this.driver.car = data.car;
+                this.driver.driver_id = data.driver_id;
+                this.driver.driver_firstName = data.driver_firstName;
+                this.driver.driver_lastName = data.driver_lastName;
+                this.driver.driver_car = data.driver_car;
             }.bind(this));
         }
     });
@@ -103,10 +103,10 @@ function formEditDriver(id) {
         methods: {
             save: function (event) {
                 var driver = {
-                    'id': this.driver.id,
-                    'firstName': this.driver.firstName,
-                    'lastName': this.driver.lastName,
-                    'car': this.driver.car
+                    'driver_id': this.driver.driver_id,
+                    'driver_firstName': this.driver.driver_firstName,
+                    'driver_lastName': this.driver.driver_lastName,
+                    'driver_car': this.driver.driver_car
                 };
                 update(driver, 'driver', function (error) {
                     if (error) {
@@ -114,7 +114,7 @@ function formEditDriver(id) {
                         return;
                     }
 
-                    window.location.replace(config.urlBase + '/driver/show/' + this.driver.id);
+                    window.location.replace(config.urlBase + '/driver/show/' + this.driver.driver_id);
                 }.bind(this));
             }
         }

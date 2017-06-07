@@ -2,10 +2,10 @@
  * Prepares SQL & IndexedDB modifications
  * @params entity, entityType, callback
  */
-function update(entity, entityType, callback) {
+function update(entity, entityType, id, callback) {
     updateIndexedDB(entity, entityType);
     serverTask(function () {
-        updateServer(entity, entityType, callback);
+        updateServer(entity, entityType, id, callback);
     });
 }
 

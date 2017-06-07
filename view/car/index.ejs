@@ -12,23 +12,21 @@
                     <td>Maker</td>
                     <td>Model</td>
                     <td>Year</td>
-                    <td>Driver</td>
                     <td>Actions</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="car in cars">
-                    <td>{{car.id}}</td>
-                    <td>{{car.maker}}</td>
-                    <td>{{car.model}}</td>
-                    <td>{{car.year}}</td>
-                    <td>{{car.driver}}</td>
+                    <td>{{car.car_id}}</td>
+                    <td>{{car.car_maker}}</td>
+                    <td>{{car.car_model}}</td>
+                    <td>{{car.car_year}}</td>
                     <td>
-                        <a v-bind:href="'../car/show/'+car.id"><span
+                        <a v-bind:href="'../car/show/'+car.car_id"><span
                                     class="glyphicon glyphicon-eye-open"></span></a>
-                        <a v-bind:href="'../car/edit/'+car.id"><span
+                        <a v-bind:href="'../car/edit/'+car.car_id"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                        <a v-bind:href="'../car/delete/'+car.id"><span
+                        <a v-bind:href="'../car/delete/'+car.car_id"><span
                                     class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>

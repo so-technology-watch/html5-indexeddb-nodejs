@@ -1,6 +1,5 @@
 <% include ../layout/templates/header %>
 <% include ../layout/templates/navbar %>
-<% include ../layout/content/homeMessage %>
 
 <div class="container" id="entityList">
     <div id="driverPanel" class="panel panel-info">
@@ -8,12 +7,12 @@
         <div class="panel-body">
             <div class="well">
                 <ul>
-                    <li>Driver First Name : {{driver.firstName}}</li>
-                    <li>Driver Last Name : {{driver.lastName}}</li>
-                    <li>Driver Car : {{driver.car}}</li>
+                    <li>Driver First Name : {{driver.driver_firstName}}</li>
+                    <li>Driver Last Name : {{driver.driver_lastName}}</li>
+                    <li>Driver Car : {{driver.driver_car}}</li>
                 </ul>
             </div>
-            <a v-bind:href="'../../driver/edit/'+driver.id">
+            <a v-bind:href="'../../driver/edit/'+driver.driver_id">
                 <button type="button" class="btn btn-info">Edit</button>
             </a>
             <a href="'../../../../driver/">

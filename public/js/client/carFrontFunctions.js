@@ -16,10 +16,9 @@ function formAddCar() {
         methods: {
             save: function () {
                 var car = {
-                    'maker': this.car.maker,
-                    'model': this.car.model,
-                    'year': this.car.year,
-                    'driver': this.car.driver
+                    'car_maker': this.car.car_maker,
+                    'car_model': this.car.car_model,
+                    'car_year': this.car.car_year
                 };
                 create(car, 'car', function (error) {
                     if (error) {
@@ -45,21 +44,20 @@ function showCar(id) {
         el: '#carPanel',
         data: {
             car: {
-                id: null,
-                maker: null,
-                model: null,
-                year: null,
-                driver: null
+                car_id: null,
+                car_maker: null,
+                car_model: null,
+                car_year: null
             }
         },
         created: function () {
             var url = config.urlBase + '/api/car/' + id;
             $.get(url, function (data) {
-                this.car.id = data.id;
-                this.car.maker = data.maker;
-                this.car.model = data.model;
-                this.car.year = data.year;
-                this.car.driver = data.driver;
+                console.log(data);
+                this.car.car_id = data.car_id;
+                this.car.car_maker = data.car_maker;
+                this.car.car_model = data.car_model;
+                this.car.car_year = data.car_year;
             }.bind(this));
         }
     });
@@ -106,19 +104,18 @@ function formEditCar(id) {
         methods: {
             save: function (event) {
                 var car = {
-                    'id': this.car.id,
-                    'maker': this.car.maker,
-                    'model': this.car.model,
-                    'year': this.car.year,
-                    'driver': this.car.driver
+                    'car_id': this.car.car_id,
+                    'car_maker': this.car.car_maker,
+                    'car_model': this.car.car_model,
+                    'car_year': this.car.car_year
                 };
-                update(car, 'car', function (error) {
+                update(car, 'car', this.car.car_id, function (error) {
                     if (error) {
                         console.log(error);
                         return;
                     }
 
-                    window.location.replace(config.urlBase + '/car/show/' + this.car.id);
+                    window.location.replace(config.urlBase + '/car/show/' + this.car.car_id);
                 }.bind(this));
             }
         }

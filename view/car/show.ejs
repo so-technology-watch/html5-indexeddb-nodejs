@@ -1,6 +1,5 @@
 <% include ../layout/templates/header %>
 <% include ../layout/templates/navbar %>
-<% include ../layout/content/homeMessage %>
 
 <div class="container" id="entityList">
     <div id="carPanel" class="panel panel-info">
@@ -8,13 +7,12 @@
         <div class="panel-body">
             <div class="well">
                 <ul>
-                    <li>Car Maker : {{ car.maker }}</li>
-                    <li>Car Model : {{ car.model }}</li>
-                    <li>Car Year : {{ car.year }}</li>
-                    <li>Car Driver : {{ car.driver }}</li>
+                    <li>Car Maker : {{ car.car_maker }}</li>
+                    <li>Car Model : {{ car.car_model }}</li>
+                    <li>Car Year : {{ car.car_year }}</li>
                 </ul>
             </div>
-            <a v-bind:href="'../../car/edit/'+car.id">
+            <a v-bind:href="'../../car/edit/'+car.car_id">
                 <button type="button" class="btn btn-info">Edit</button>
             </a>
             <a href="'../../../../car/">

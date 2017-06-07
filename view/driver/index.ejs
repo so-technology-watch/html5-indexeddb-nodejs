@@ -1,6 +1,5 @@
 <% include ../layout/templates/header %>
 <% include ../layout/templates/navbar %>
-<% include ../layout/content/homeMessage %>
 
 <div class="container" id="entityList">
     <div id="driverPanel" class="panel panel-info">
@@ -18,16 +17,16 @@
                 </thead>
                 <tbody>
                 <tr v-for="driver in drivers">
-                    <td>{{driver.id}}</td>
-                    <td>{{driver.firstName}}</td>
-                    <td>{{driver.lastName}}</td>
-                    <td>{{driver.car}}</td>
+                    <td>{{driver.driver_id}}</td>
+                    <td>{{driver.driver_firstName}}</td>
+                    <td>{{driver.driver_lastName}}</td>
+                    <td>{{driver.driver_car}}</td>
                     <td>
-                        <a v-bind:href="'../driver/show/'+driver.id"><span
+                        <a v-bind:href="'../driver/show/'+driver.driver_id"><span
                                     class="glyphicon glyphicon-eye-open"></span></a>
-                        <a v-bind:href="'../driver/edit/'+driver.id"><span
+                        <a v-bind:href="'../driver/edit/'+driver.driver_id"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                        <a v-bind:href="'../driver/delete/'+driver.id"><span
+                        <a v-bind:href="'../driver/delete/'+driver.driver_id"><span
                                     class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>

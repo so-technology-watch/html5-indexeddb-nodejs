@@ -3,8 +3,8 @@
  */
 const db = new Dexie("db_Car_Driver");
 db.version(1).stores({
-    car: '++id, maker, model, year , driver',
-    driver: '++id, lastName, firstName, car'
+    car: '++car_id, maker, car_model, car_year',
+    driver: '++driver_id, driver_lastName, driver_firstName, driver_car'
 });
 
 /* (CREATE) Add an Entity */

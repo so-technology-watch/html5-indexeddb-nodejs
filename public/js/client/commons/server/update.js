@@ -2,8 +2,8 @@
  * Prepares SQL & IndexedDB update
  * @params entity, entityType, callback
  */
-function updateServer(entity, entityType, callback) {
-    var url = config.urlBase + '/api/' + entityType + '/' + entity.id;
+function updateServer(entity, entityType, id, callback) {
+    var url = config.urlBase + '/api/' + entityType + '/' + id;
 
     $.ajax({
         url: url,
