@@ -18,6 +18,9 @@
                     <label for="inputCarYear">Year</label>
                     <input type="date" class="form-control" v-model="car.car_year">
                 </div>
+                <div id="warningMessage" class="alert alert-danger">
+                    {{ error.errorCode }} : {{ error.message }}
+                </div>
                 <input type="submit" id="saveCar" class="btn btn-warning" value="Update entity">
                 <a href="../../car">
                     <button type="button" class="btn btn-info">Back to the list</button>
@@ -30,5 +33,3 @@
 <script>
     formEditCar(<%= id %>);
 </script>
-
-<% include ../layout/templates/footer %>

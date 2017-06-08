@@ -26,7 +26,7 @@ class controllerCommon {
 
     serverError(res) {
         return (error) => {
-            res.status(500);
+            res.status(error.errorCode);
             res.json(error);
         }
     }

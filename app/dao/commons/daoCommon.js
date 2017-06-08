@@ -72,13 +72,12 @@ class Common {
     run(sqlRequest, sqlParams, sqlRequest2 = null) {
         return new Promise(function (resolve, reject) {
             let stmt = database.db.prepare(sqlRequest);
-            stmt.run(sqlParams, function (err) {
+            stmt.run(sqlParams, function () {
                 if (this.changes === 1) {
                     if (sqlRequest2) {
                         let stmt2 = database.db.prepare(sqlRequest2);
                         stmt2.all({$id: this.lastID}, function (err, rows) {
                             if (err) {
-                                console.log(err);
                                 reject(
                                     new DaoError(500, "Internal server error")
                                 );
@@ -98,12 +97,19 @@ class Common {
                         new DaoError(404, "Entity not found")
                     )
                 } else {
-                    console.log(err);
                     reject(
                         new DaoError(400, "Invalid arguments")
                     )
                 }
             })
+        });
+    }
+
+    forceErrorInvalid() {
+        return new Promise(function (resolve) {
+            resolve(
+                new DaoError(400, "Invalid arguments")
+            )
         });
     }
 }

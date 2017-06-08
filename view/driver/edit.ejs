@@ -18,6 +18,9 @@
                     <label for="inputDriverCar">Car</label>
                     <input type="text" class="form-control" v-model="driver.driver_car">
                 </div>
+                <div id="warningMessage" class="alert alert-danger">
+                    {{ error.errorCode }} : {{ error.message }}
+                </div>
                 <input type="submit" id="saveDriver" class="btn btn-warning" value="Update entity">
                 <a href="../../driver">
                     <button type="button" class="btn btn-info">Back to the list</button>
@@ -30,5 +33,3 @@
 <script>
     formEditDriver(<%= id %>);
 </script>
-
-<% include ../layout/templates/footer %>

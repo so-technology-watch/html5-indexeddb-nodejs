@@ -21,6 +21,9 @@
                     <input type="date" class="form-control"
                            v-model="car.car_year" placeholder="Enter Car Year">
                 </div>
+                <div id="warningMessage" class="alert alert-danger">
+                    {{ error.errorCode }} : {{ error.message }}
+                </div>
                 <input type="submit" id="saveCar" class="btn btn-success" value="Add a new entity">
                 <a href="../../car">
                     <button type="button" class="btn btn-info">Back to the list</button>
@@ -33,5 +36,3 @@
 <script>
     formAddCar();
 </script>
-
-<% include ../layout/templates/footer %>

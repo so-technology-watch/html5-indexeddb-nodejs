@@ -11,7 +11,11 @@ function formAddCar() {
     return new Vue({
         el: '#carForm',
         data: {
-            car: {}
+            car: {},
+            error: {
+                errorCode: null,
+                message: null
+            }
         },
         methods: {
             save: function () {
@@ -20,12 +24,13 @@ function formAddCar() {
                     'car_model': this.car.car_model,
                     'car_year': this.car.car_year
                 };
-                create(car, 'car', function (error) {
-                    if (error) {
-                        console.log(error);
+                create(car, 'car', function (err) {
+                    if (err) {
+                        this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
+                        this.error.message = err.responseJSON.message + '.';
+                        $('#warningMessage').css('display', 'flex');
                         return;
                     }
-
                     window.location.replace(config.urlBase + '/car/');
                 }.bind(this));
             }
@@ -53,7 +58,6 @@ function showCar(id) {
         created: function () {
             var url = config.urlBase + '/api/car/' + id;
             $.get(url, function (data) {
-                console.log(data);
                 this.car.car_id = data.car_id;
                 this.car.car_maker = data.car_maker;
                 this.car.car_model = data.car_model;
@@ -94,7 +98,11 @@ function formEditCar(id) {
     return new Vue({
         el: '#carForm',
         data: {
-            car: {}
+            car: {},
+            error: {
+                errorCode: null,
+                message: null
+            }
         },
         created: function () {
             getOneServer(id, 'car', function (data) {
@@ -109,9 +117,11 @@ function formEditCar(id) {
                     'car_model': this.car.car_model,
                     'car_year': this.car.car_year
                 };
-                update(car, 'car', this.car.car_id, function (error) {
-                    if (error) {
-                        console.log(error);
+                update(car, 'car', this.car.car_id, function (err) {
+                    if (err) {
+                        this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
+                        this.error.message = err.responseJSON.message + '.';
+                        $('#warningMessage').css('display', 'flex');
                         return;
                     }
 

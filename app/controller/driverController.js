@@ -56,11 +56,16 @@ class DriverController {
      */
     update(req, res) {
         let driver = new Driver();
-        driver.driver_id = req.body.driver_id;
-        driver.driver_firstName = req.body.driver_firstName;
-        driver.driver_lastName = req.body.driver_lastName;
-        driver.driver_car = req.body.driver_car;
 
+        if (req.body.driver_firstName !== '' && req.body.driver_lastName !== '') {
+            driver.driver_id = req.body.driver_id;
+            driver.driver_firstName = req.body.driver_firstName;
+            driver.driver_lastName = req.body.driver_lastName;
+            driver.driver_car = req.body.driver_car;
+        } else {
+            return this.driverDao.forceErrorInvalid()
+                .then(this.common.serverError(res));
+        }
         return this.driverDao.update(driver)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
@@ -84,8 +89,7 @@ class DriverController {
             return this.driverDao.createWithId(driver)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));
-        }
-        else {
+        } else {
             return this.driverDao.create(driver)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));

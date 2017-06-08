@@ -11,7 +11,11 @@ function formAddDriver() {
     return new Vue({
         el: '#driverForm',
         data: {
-            driver: {}
+            driver: {},
+            error: {
+                errorCode: null,
+                message: null
+            }
         },
         methods: {
             save: function () {
@@ -20,12 +24,13 @@ function formAddDriver() {
                     'driver_lastName': this.driver.driver_lastName,
                     'driver_car': this.driver.driver_car
                 };
-                create(driver, 'driver', function (error) {
-                    if (error) {
-                        console.log(error);
+                create(driver, 'driver', function (err) {
+                    if (err) {
+                        this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
+                        this.error.message = err.responseJSON.message + '.';
+                        $('#warningMessage').css('display', 'flex   ');
                         return;
                     }
-
                     window.location.replace(config.urlBase + '/driver/');
                 }.bind(this));
             }
@@ -75,7 +80,7 @@ function showAllDriver() {
         },
         created: function () {
             getAllServer('driver', function (data) {
-                if(data[0]) {
+                if (data[0]) {
                     this.drivers = data;
                 }
             }.bind(this))
@@ -93,7 +98,11 @@ function formEditDriver(id) {
     return new Vue({
         el: '#driverForm',
         data: {
-            driver: {}
+            driver: {},
+            error: {
+                errorCode: null,
+                message: null
+            }
         },
         created: function () {
             getOneServer(id, 'driver', function (data) {
@@ -108,9 +117,11 @@ function formEditDriver(id) {
                     'driver_lastName': this.driver.driver_lastName,
                     'driver_car': this.driver.driver_car
                 };
-                update(driver, 'driver', function (error) {
-                    if (error) {
-                        console.log(error);
+                update(driver, 'driver', this.driver.driver_id, function (err) {
+                    if (err) {
+                        this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
+                        this.error.message = err.responseJSON.message + '.';
+                        $('#warningMessage').css('display', 'flex   ');
                         return;
                     }
 

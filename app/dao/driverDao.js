@@ -126,6 +126,10 @@ class DriverDao {
         let sqlParams = {$id: id};
         return this.common.existsOne(sqlRequest, sqlParams);
     };
+
+    forceErrorInvalid() {
+        return this.common.forceErrorInvalid();
+    }
 }
 
 module.exports = DriverDao;

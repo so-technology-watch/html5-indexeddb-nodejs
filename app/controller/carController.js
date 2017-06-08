@@ -58,10 +58,16 @@ class CarController {
      */
     update(req, res) {
         let car = new Car();
-        car.car_id = req.params.car_id;
-        car.car_maker = req.body.car_maker;
-        car.car_model = req.body.car_model;
-        car.car_year = req.body.car_year;
+
+        if (req.body.car_maker !== '' && req.body.car_model !== '' && req.body.car_year !== '') {
+            car.car_id = req.params.car_id;
+            car.car_maker = req.body.car_maker;
+            car.car_model = req.body.car_model;
+            car.car_year = req.body.car_year;
+        } else {
+            return this.carDao.forceErrorInvalid()
+                .then(this.common.serverError(res));
+        }
 
         return this.carDao.update(car)
             .then(this.common.editSuccess(res))
@@ -78,6 +84,7 @@ class CarController {
         if (req.body.car_id) {
             car.car_id = req.body.car_id;
         }
+
         car.car_maker = req.body.car_maker;
         car.car_model = req.body.car_model;
         car.car_year = req.body.car_year;
