@@ -21,7 +21,7 @@
                     <input type="text" class="form-control"
                            v-model="driver.driver_car" placeholder="Enter Driver car">
                 </div>
-                <div id="warningMessage" class="alert alert-danger">
+                <div id="warningMessage" class="alert alert-danger" v-bind:style="'display:'+error.display">
                     {{ error.errorCode }} : {{ error.message }}
                 </div>
                 <input type="submit" id="saveDriver" class="btn btn-success" value="Add a new entity">

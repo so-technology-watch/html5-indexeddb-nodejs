@@ -14,8 +14,9 @@ function formAddCar() {
             car: {},
             error: {
                 errorCode: null,
-                message: null
-            }
+                message: null,
+                display: "none",
+            },
         },
         methods: {
             save: function () {
@@ -28,7 +29,7 @@ function formAddCar() {
                     if (err) {
                         this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
                         this.error.message = err.responseJSON.message + '.';
-                        $('#warningMessage').css('display', 'flex');
+                        this.error.display = "flex";
                         return;
                     }
                     window.location.replace(config.urlBase + '/car/');
