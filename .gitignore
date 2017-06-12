@@ -1,4 +1,4 @@
 .idea/
 node_modules/
-sqlite.db
+db.sqlite3
 package.lock
