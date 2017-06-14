@@ -102,7 +102,8 @@ function formEditDriver(id) {
             driver: {},
             error: {
                 errorCode: null,
-                message: null
+                message: null,
+                display: "none",
             }
         },
         created: function () {
@@ -122,7 +123,7 @@ function formEditDriver(id) {
                     if (err) {
                         this.error.errorCode = 'Error ' + err.responseJSON.errorCode;
                         this.error.message = err.responseJSON.message + '.';
-                        $('#warningMessage').css('display', 'flex   ');
+                        this.error.display = "flex";
                         return;
                     }
 
